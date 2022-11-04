@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:printing/printing.dart';
 import 'package:techer_mgmt/Controller/Controller_State.dart';
 import 'package:techer_mgmt/Modal/DailyUpdate.dart';
+import 'package:techer_mgmt/Modal/LateMarks.dart';
 import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 
 import 'PdfGenerator.dart';
@@ -18,11 +19,23 @@ class _ShowPersonalDataState extends State<ShowPersonalData> {
 
   PersonalDataUpdate data = Get.arguments[0]["Personal data"];
   String userid = Get.arguments[1]["userid"];
+  QuerySnapshot<Map<String, dynamic>> LateMarks = Get.arguments[2]["lateMarks"];
+  bool isLateMarksExist=true;
+  late Map<String, dynamic>? LateMarksData;
+
+  getData(){
+    isLateMarksExist = LateMarks.size==0?false:true;
+    LateMarks.docs.forEach((e)=>LateMarksData=e.data());
+
+
+  }
+
 
   final controller = Get.put(ControllerState());
 
-  @override
-  void initState() {
+@override
+  void initState(){
+  getData();
     super.initState();
   }
   @override
@@ -38,9 +51,10 @@ class _ShowPersonalDataState extends State<ShowPersonalData> {
                   .collection("DailyUpdate")
                   .snapshots(),
               builder: (context, snap) {
+                //isLateMarksExist?LateMarksData
                 if(snap.hasData){
                   return PdfPreview(
-                    build: (context) => pdfGenerator(data, userid,snap.data!.size==0?null:snap.data!.docs),
+                    build: (context) => pdfGenerator(data, userid,snap.data!.size==0?null:snap.data!.docs,isLateMarksExist?LateMarksData:null),
                   );
                 }else{
                   return LinearProgressIndicator();}

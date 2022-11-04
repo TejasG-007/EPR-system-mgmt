@@ -1,12 +1,16 @@
 import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
+import 'package:techer_mgmt/Modal/LateMarks.dart';
 import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
-
 import '../Modal/DailyUpdate.dart';
 
+
+
+
+
 Future<Uint8List> pdfGenerator(
-    PersonalDataUpdate data, String id, var dailyData) {
+    PersonalDataUpdate data, String id, var dailyData,Map<String,dynamic>? lateMarks) {
   final pdf = Document();
   pdf.addPage(MultiPage(
       build: (Context context) =>
@@ -173,6 +177,40 @@ Future<Uint8List> pdfGenerator(
                 ]);
               })
             ]),
+             SizedBox(height: 20),
+             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+               Text("Late Marks",
+                   style: TextStyle(
+                       fontWeight: FontWeight.bold,
+                       color: PdfColors.purpleAccent)),
+             ]),
+             SizedBox(height: 10),
+             lateMarks==null?Text("No Late Mark Record Found."): Table(border: TableBorder.all(color: PdfColors.black), children: [
+               TableRow(children: [
+                 Column(children: [
+                   Text("Date", style: TextStyle(fontWeight: FontWeight.bold))
+                 ]),
+                 Column(children: [
+                   Text("Class",
+                       style: TextStyle(fontWeight: FontWeight.bold))
+                 ]),
+                 Column(children: [
+                   Text("Division",
+                       style: TextStyle(fontWeight: FontWeight.bold))
+                 ]),
+               ]),
+               ...lateMarks.keys.toList().map((e){
+                 LateMarks dd = LateMarks.fromMap(lateMarks[e]);
+                 return TableRow(children: [
+                   Column(children: [Text("${DateTime.fromMicrosecondsSinceEpoch(int.parse(e)).toString().substring(0,16)}",style: TextStyle(
+                       color: PdfColors.cyan,fontWeight: FontWeight.bold
+                   ))]),
+                   Column(children: [Text("${dd.Division}")]),
+                   Column(children: [Text("${dd.Class}")]),
+                 ]);
+               })
+             ]),
+
            ]),
          ]),
          ],

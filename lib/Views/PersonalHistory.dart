@@ -7,6 +7,7 @@ import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 class PersonalHistory extends StatelessWidget {
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +34,13 @@ class PersonalHistory extends StatelessWidget {
                           snapshot.data!.docs[ind].data());
                       return Container(
                           child: InkWell(
-                              onTap: () {
+                              onTap: () async{
                                 Get.toNamed("/show-personal-data", arguments: [
                                   {"Personal data": data},
                                   {"userid": snapshot.data!.docs[ind].id},
+                                  {"lateMarks":await FirebaseFirestore.instance
+                                      .collection('Users').doc(snapshot.data!.docs[ind].id).collection("LateMarks")
+                                      .get()}
                                 ]);
                               },
                               hoverColor: Colors.purpleAccent,

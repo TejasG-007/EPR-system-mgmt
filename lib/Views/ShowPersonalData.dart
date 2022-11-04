@@ -22,6 +22,10 @@ class _ShowPersonalDataState extends State<ShowPersonalData> {
   final controller = Get.put(ControllerState());
 
   @override
+  void initState() {
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     try {
       return Scaffold(
@@ -36,7 +40,7 @@ class _ShowPersonalDataState extends State<ShowPersonalData> {
               builder: (context, snap) {
                 if(snap.hasData){
                   return PdfPreview(
-                    build: (context) => pdfGenerator(data, userid,snap.data!.docs),
+                    build: (context) => pdfGenerator(data, userid,snap.data!.size==0?null:snap.data!.docs),
                   );
                 }else{
                   return LinearProgressIndicator();}

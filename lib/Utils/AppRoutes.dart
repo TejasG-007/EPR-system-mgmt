@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:techer_mgmt/Views/Daily-Data-Entry.dart';
+import 'package:techer_mgmt/Views/LateEntryView.dart';
 import 'package:techer_mgmt/Views/PersonalDataEntry.dart';
 import 'package:techer_mgmt/Views/PersonalHistory.dart';
 import '../Views/Daily-Data-Filling.dart';
-import '../Views/Feedback-Update.dart';
+import '../Views/FeedbackandLateMarks.dart';
 import '../Views/HomeScreen.dart';
 import '../Views/ShowPersonalData.dart';
 
@@ -19,8 +20,8 @@ appRoutes() => [
           transition: Transition.leftToRightWithFade,
           transitionDuration: Duration(milliseconds: 500)),
   GetPage(
-          name: '/feedback-entry',
-          page: () => FeedbackScreen(),
+          name: '/feedback-and-latemarks',
+          page: () => FeedbackandLateMarks(),
           transition: Transition.leftToRightWithFade,
           transitionDuration: Duration(milliseconds: 500)),
   GetPage(
@@ -45,6 +46,15 @@ appRoutes() => [
       page: () => DailyDataFilling(),
       transition: Transition.leftToRightWithFade,
       transitionDuration: Duration(milliseconds: 500)),
+
+  GetPage(
+      name: '/late-entry',
+      page: () => LateEntry(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 500)),
+
+
+
     ];
 
 class Middleware extends GetMiddleware{

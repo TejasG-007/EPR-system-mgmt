@@ -362,119 +362,84 @@ class _DataEntryState extends State<DataEntry> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  child: controller.isdisabled.value
-                      ? Container(
-                          height: 25,
-                          width: 25,
-                          child: const CircularProgressIndicator(
-                            color: Colors.purpleAccent,
-                          ),
-                        )
-                      : ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10))),
-                          onPressed: () async {
-                            if (formkey1.currentState!.validate()) {
-                              try {
-                                await firestore
-                                    .collection("Users")
-                                    .add(PersonalDataUpdate(
-                                        Userid: UniqueId.text,
-                                        Name: Name.text,
-                                        Classes: controller.classes_real.value,
-                                        Subjects:
-                                            controller.subjects_real.value,
-                                        Divisions:
-                                            controller.division_real.value,
-                                        Papers: controller.papers_real.value,
-                                        JoiningDate: JoiningDate.text,
-                                        DailyWorkLoad: DailyWorkLoad.text,
-                                        Salary: {
-                                          "Salary_gov": Salary_gov.text,
-                                          "Salary_pvt": Salary_pvt.text,
-                                          "Salary_total":
-                                              double.parse(Salary_gov.text) +
+                Obx(() => Container(
+                      margin: EdgeInsets.all(10),
+                      child: controller.isdisabled.value
+                          ? Container(
+                              height: 25,
+                              width: 25,
+                              child: const CircularProgressIndicator(
+                                color: Colors.purpleAccent,
+                              ),
+                            )
+                          : ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              onPressed: () async {
+                                if (formkey1.currentState!.validate()) {
+                                  controller.ButtonDisabled();
+                                  try {
+                                    await firestore
+                                        .collection("Users")
+                                        .add(PersonalDataUpdate(
+                                            Userid: UniqueId.text,
+                                            Name: Name.text,
+                                            Classes:
+                                                controller.classes_real.value,
+                                            Subjects:
+                                                controller.subjects_real.value,
+                                            Divisions:
+                                                controller.division_real.value,
+                                            Papers:
+                                                controller.papers_real.value,
+                                            JoiningDate: JoiningDate.text,
+                                            DailyWorkLoad: DailyWorkLoad.text,
+                                            Salary: {
+                                              "Salary_gov": Salary_gov.text,
+                                              "Salary_pvt": Salary_pvt.text,
+                                              "Salary_total": double.parse(
+                                                      Salary_gov.text) +
                                                   double.parse(Salary_pvt.text),
-                                        },
-                                        Mobile: Mobile.text,
-                                        Casual_Leave: {
-                                          "Casual_Leave_Avaialable": 12,
-                                          "Leave_Taken": 0,
-                                        },
-                                        Duty_Leave: {
-                                          "Duty_Leave_Available": 0,
-                                          "Leave_Taken": 0
-                                        }).toMap())
-                                    .then((value) => showDialog(
+                                            },
+                                            Mobile: Mobile.text,
+                                            Casual_Leave: {
+                                              "Casual_Leave_Avaialable": 12,
+                                              "Leave_Taken": 0,
+                                            },
+                                            Duty_Leave: {
+                                              "Duty_Leave_Available": 0,
+                                              "Leave_Taken": 0
+                                            }).toMap())
+                                        .then((value) {
+
+                                          HomeBackAlertDialog(context);
+                                          controller.ButtonEnabled();
+
+                                    });
+                                  } catch (e) {
+                                    showDialog(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                              content: Column(
-                                                children: [
-                                                  const Center(
-                                                    child: Icon(
-                                                      Icons.done,
-                                                      color: Colors.green,
-                                                      size: 50,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "Submitted Succesfully",
-                                                    style: GoogleFonts.mulish(
-                                                        color: Colors.black),
-                                                  )
-                                                ],
-                                              ),
-                                              actions: [
-                                                ElevatedButton(
-                                                  style: ElevatedButton.styleFrom(
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10))),
-                                                  onPressed: () {
-                                                    Get.toNamed('/home');
-                                                  },
-                                                  child: Text(
-                                                    "Home",
-                                                    style: GoogleFonts.mulish(),
-                                                  ),
-                                                )
-                                              ],
-                                            )));
-                              } catch (e) {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                          content: Column(
-                                            children: [
-                                              Center(
-                                                child: Icon(
-                                                  Icons.error_outline_rounded,
-                                                  color: Colors.orange,
-                                                ),
-                                              ),
-                                              Text(
-                                                "Facing Issue While Submitting\n$e",
-                                                style: GoogleFonts.mulish(
-                                                    color: Colors.red),
-                                              )
-                                            ],
-                                          ),
+                                          icon: Icon(Icons.cancel_outlined,color: Colors.red,),
+                                          title: Text("Please try again.",style: GoogleFonts.mulish(
+                                              color: Colors.black)),
+                                          actions: [
+                                            IconButton(onPressed: (){
+                                              controller.ButtonEnabled();
+                                              Get.back();
+                                            }, icon:Icon(Icons.arrow_back))
+                                          ],
                                         ));
-                              }
-                            }
-                          },
-                          child: Text(
-                            "Submit",
-                            style: GoogleFonts.mulish(),
-                          ),
-                        ),
-                )
+                                  }
+                                }
+                              },
+                              child: Text(
+                                "Submit",
+                                style: GoogleFonts.mulish(),
+                              ),
+                            ),
+                    ))
               ],
             ),
           ),

@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
@@ -111,7 +110,7 @@ Future<Uint8List> pdfGenerator(
              Table(border: TableBorder.all(color: PdfColors.black), children: [
                ...data.Duty_Leave.keys.toList().map((e) => TableRow(children: [
                  Padding(
-                     child: Text("${e} : ${data.Salary[e]}"),
+                     child: Text("${e} : ${data.Duty_Leave[e]}"),
                      padding: EdgeInsets.all(5))
                ]))
              ]),
@@ -128,55 +127,55 @@ Future<Uint8List> pdfGenerator(
              ]),
              SizedBox(height: 10),
 
-             Table(border: TableBorder.all(color: PdfColors.black), children: [
-               TableRow(children: [
-                 Column(children: [
-                   Text("Date", style: TextStyle(fontWeight: FontWeight.bold))
-                 ]),
-                 Column(children: [
-                   Text("Uniform",
-                       style: TextStyle(fontWeight: FontWeight.bold))
-                 ]),
-                 Column(children: [
-                   Text("Signature",
-                       style: TextStyle(fontWeight: FontWeight.bold))
-                 ]),
-                 Column(children: [
-                   Text("Remark",
-                       style: TextStyle(fontWeight: FontWeight.bold))
-                 ]),
-                 Column(children: [
-                   Text("DSC", style: TextStyle(fontWeight: FontWeight.bold))
-                 ]),
-                 Column(children: [
-                   Text("DSP", style: TextStyle(fontWeight: FontWeight.bold))
-                 ]),
-                 Column(children: [
-                   Text("IdCard",
-                       style: TextStyle(fontWeight: FontWeight.bold))
-                 ]),
-               ]),
-               ...dailyData.map((e) {
-                 DailyUpdate dd = DailyUpdate.fromMap(e.data());
-                 try{
-                   return TableRow(children: [
-                     Column(children: [Text("${e.id}",style: TextStyle(
-                         color: PdfColors.cyan,fontWeight: FontWeight.bold
-                     ))]),
-                     Column(children: [Text("${dd.Uniform}")]),
-                     Column(children: [Text("${dd.Signature}")]),
-                     Column(children: [Text("${dd.Remark}")]),
-                     Column(children: [Text("${dd.DSC}")]),
-                     Column(children: [Text("${dd.DSP}")]),
-                     Column(children: [Text("${dd.IdCard}")]),
-                   ]);
-                 }catch(e){
-                   return Text("No Daily Updated Record Found");
-                 }
-               })
-             ]),
+            dailyData==null?Text("No Daily Update Record Found."): Table(border: TableBorder.all(color: PdfColors.black), children: [
+              TableRow(children: [
+                Column(children: [
+                  Text("Date", style: TextStyle(fontWeight: FontWeight.bold))
+                ]),
+                Column(children: [
+                  Text("Uniform",
+                      style: TextStyle(fontWeight: FontWeight.bold))
+                ]),
+                Column(children: [
+                  Text("Signature",
+                      style: TextStyle(fontWeight: FontWeight.bold))
+                ]),
+                Column(children: [
+                  Text("Remark",
+                      style: TextStyle(fontWeight: FontWeight.bold))
+                ]),
+                Column(children: [
+                  Text("DSC", style: TextStyle(fontWeight: FontWeight.bold))
+                ]),
+                Column(children: [
+                  Text("DSP", style: TextStyle(fontWeight: FontWeight.bold))
+                ]),
+                Column(children: [
+                  Text("IdCard",
+                      style: TextStyle(fontWeight: FontWeight.bold))
+                ]),
+              ]),
+              ...dailyData.map((e) {
+
+
+                DailyUpdate dd = DailyUpdate.fromMap(e.data());
+
+                return TableRow(children: [
+                  Column(children: [Text("${e.id}",style: TextStyle(
+                      color: PdfColors.cyan,fontWeight: FontWeight.bold
+                  ))]),
+                  Column(children: [Text("${dd.Uniform}")]),
+                  Column(children: [Text("${dd.Signature}")]),
+                  Column(children: [Text("${dd.Remark}")]),
+                  Column(children: [Text("${dd.DSC}")]),
+                  Column(children: [Text("${dd.DSP}")]),
+                  Column(children: [Text("${dd.IdCard}")]),
+                ]);
+              })
+            ]),
            ]),
-         ]),],
+         ]),
+         ],
       pageFormat: PdfPageFormat.a4));
 
   return pdf.save();

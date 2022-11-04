@@ -1,6 +1,13 @@
 import 'package:get/get.dart';
 
 class ControllerState extends GetxController {
+
+
+  /////////////////////For Late Marks//////////////////////////////
+   List<String> classesfromFirebase = [""].obs;
+  List<String> divisionfromFirebase = [""].obs;
+
+  ///////////////////////////////////////////////////
   late Rx<double> TotalSalary;
 
   List<String> division = [
@@ -41,6 +48,8 @@ class ControllerState extends GetxController {
   RxList subjects_real = ["Hindi"].obs;
   RxList classes_real = ["Class-XII"].obs;
   RxList papers_real = ["Paper-I"].obs;
+  RxString firebaseClass = "".obs;
+  RxString firebaseDivision = "".obs;
 
   RxBool isdisabled = false.obs;
 

@@ -31,7 +31,6 @@ class PersonalHistory extends StatelessWidget {
                     itemBuilder: (ctx, ind) {
                       PersonalDataUpdate data = PersonalDataUpdate.fromMap(
                           snapshot.data!.docs[ind].data());
-
                       return Container(
                           child: InkWell(
                               onTap: () {

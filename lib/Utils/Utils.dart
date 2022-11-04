@@ -1028,3 +1028,33 @@ Widget ResponsiveFeedbackDialog({
           ],
         );
 }
+
+
+
+ HomeBackAlertDialog(BuildContext context){
+  return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: Icon(Icons.done,color: Colors.green,),
+        title: Text("Submitted Successfully.",style: GoogleFonts.mulish(
+            color: Colors.black),),
+        actions: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                shape:
+                RoundedRectangleBorder(
+                    borderRadius:
+                    BorderRadius
+                        .circular(
+                        10))),
+            onPressed: () {
+              Get.toNamed('/home');
+            },
+            child: Text(
+              "Home",
+              style: GoogleFonts.mulish(),
+            ),
+          )
+        ],
+      ));
+}

@@ -37,8 +37,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   boxTiles('/daily-data-entry', size, "assets/images/Daily-Entry.png",
                       "Daily-Data-Entry"),
-                  boxTiles('/home', size, "assets/images/Feedback.png",
-                      "Feedback-Entry"),
+                  boxTiles('/feedback-and-latemarks', size, "assets/images/lateandfeedback.png",
+                      "Late-Marks and Feedback Entry"),
                 ],
               ),
               Row(
@@ -89,6 +89,7 @@ class HomeScreen extends StatelessWidget {
       splashColor: Colors.green,
       borderRadius: BorderRadius.circular(10),
       child: Container(
+        alignment: Alignment.center,
           height: size.maxHeight / 3,
           margin: EdgeInsets.all(5),
           decoration: BoxDecoration(
@@ -109,6 +110,7 @@ class HomeScreen extends StatelessWidget {
                 scale: 5,
               ),
               Container(
+                alignment: Alignment.center,
                 margin: const EdgeInsets.all(5),
                 child: Text(
                   label,

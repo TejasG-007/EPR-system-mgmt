@@ -7,6 +7,22 @@ import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 class PersonalHistory extends StatelessWidget {
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
+  Map<String, PersonalDataUpdate> searchData = {
+    "id": PersonalDataUpdate(
+        Userid: '',
+        Name: "search Employee Name here",
+        Classes: [],
+        Subjects: [],
+        Divisions: [],
+        Papers: [],
+        JoiningDate: '',
+        DailyWorkLoad: '',
+        Salary: {},
+        Mobile: '',
+        Casual_Leave: {},
+        Duty_Leave: {}),
+  };
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +30,21 @@ class PersonalHistory extends StatelessWidget {
       appBar: AppBar(
         title: Text("Personal History"),
         elevation: 4,
+        actions: [
+          IconButton(
+              onPressed: () {
+                showSearch(
+                    context: context,
+                    delegate: SearchingClass(searchData));
+              },
+              icon: Icon(Icons.search_rounded))
+        ],
       ),
       body: SafeArea(
         child: StreamBuilder(
             stream: _firebaseFirestore.collection('Users').snapshots(),
             builder: (context, snapshot) => snapshot.connectionState ==
-                    ConnectionState.waiting
+                    ConnectionState.waiting && !snapshot.hasData
                 ? const Center(
                     child: CircularProgressIndicator(
                       color: Colors.purpleAccent,
@@ -32,6 +57,8 @@ class PersonalHistory extends StatelessWidget {
                     itemBuilder: (ctx, ind) {
                       PersonalDataUpdate data = PersonalDataUpdate.fromMap(
                           snapshot.data!.docs[ind].data());
+                      final id = snapshot.data!.docs[ind].id;
+                      searchData.addAll({id: data});
                       return Container(
                           child: InkWell(
                               onTap: () async{
@@ -75,6 +102,118 @@ class PersonalHistory extends StatelessWidget {
                     },
                   )),
       ),
+    );
+  }
+}
+
+class SearchingClass extends SearchDelegate {
+  SearchingClass(this.searchData);
+  final searchData; //id and PersonalDataUpdate Object in Map
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: Icon(Icons.clear))
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: Icon(Icons.arrow_back));
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    List<String> allids = searchData.keys.toList(growable: true);
+    List<PersonalDataUpdate> mainData =
+    searchData.values.toList(growable: true);
+    for (int itr = 0; itr <= mainData.length - 1; itr++) {
+      if (mainData[itr].Name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(mainData[itr].Name);
+      }
+    }
+    return ListView.builder(
+      itemCount: mainData.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    List<String> allids = searchData.keys.toList(growable: true);
+    List<PersonalDataUpdate> mainData =
+    searchData.values.toList(growable: true);
+    for (int itr = 0; itr <= mainData.length - 1; itr++) {
+      if (mainData[itr].Name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(mainData[itr].Name);
+      }
+    }
+    return ListView.builder(
+      itemCount: mainData.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return InkWell(
+          onTap: () async {
+            result == "search Employee Name here"
+                ? showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  content: Container(
+                    child: Flex(
+                      direction: Axis.vertical,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Text(
+                            "Please Search User Name and Tap to Fill the Data.",
+                            style: GoogleFonts.mulish(),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: Text(
+                              "back",
+                              style: GoogleFonts.mulish(),
+                            ))
+                      ],
+                    ),
+                  ),
+                ))
+                :Get.toNamed("/show-personal-data", arguments: [
+              {"Personal data": searchData[allids[index]]},
+              {"userid": allids[index]},
+              {"lateMarks":await FirebaseFirestore.instance
+                  .collection('Users').doc(allids[index]).collection("LateMarks")
+                  .get()}
+            ]);
+          },
+          hoverColor: Colors.purpleAccent,
+          splashColor: Colors.green,
+          child: ListTile(
+            title: Text(result),
+          ),
+        );
+      },
     );
   }
 }

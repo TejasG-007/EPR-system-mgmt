@@ -60,7 +60,27 @@ class ControllerState extends GetxController {
   ButtonEnabled() {
     isdisabled.value = false;
   }
+  //////////////////////////////
+  RxBool isdisabled2 = false.obs;
 
+  ButtonDisabled2() {
+    isdisabled2.value = true;
+  }
+
+  ButtonEnabled2() {
+    isdisabled2.value = false;
+  }
+/////////////////////////////////////////////
+  RxBool isdisabled3 = false.obs;
+
+  ButtonDisabled3() {
+    isdisabled3.value = true;
+  }
+
+  ButtonEnabled3() {
+    isdisabled3.value = false;
+  }
+  ///////////////////////////////////////////
   var totalSalary = 0.0.obs;
   var salGov = 0.0.obs;
   var salPvt = 0.0.obs;

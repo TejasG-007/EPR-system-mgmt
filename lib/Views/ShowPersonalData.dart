@@ -19,23 +19,11 @@ class _ShowPersonalDataState extends State<ShowPersonalData> {
 
   PersonalDataUpdate data = Get.arguments[0]["Personal data"];
   String userid = Get.arguments[1]["userid"];
-  QuerySnapshot<Map<String, dynamic>> LateMarks = Get.arguments[2]["lateMarks"];
-  bool isLateMarksExist=true;
-  late Map<String, dynamic>? LateMarksData;
-
-  getData(){
-    isLateMarksExist = LateMarks.size==0?false:true;
-    LateMarks.docs.forEach((e)=>LateMarksData=e.data());
-
-
-  }
-
-
+  QuerySnapshot<Map<String, dynamic>> LateMarkData = Get.arguments[2]["lateMarks"];
   final controller = Get.put(ControllerState());
 
 @override
   void initState(){
-  getData();
     super.initState();
   }
   @override
@@ -54,7 +42,7 @@ class _ShowPersonalDataState extends State<ShowPersonalData> {
                 //isLateMarksExist?LateMarksData
                 if(snap.hasData){
                   return PdfPreview(
-                    build: (context) => pdfGenerator(data, userid,snap.data!.size==0?null:snap.data!.docs,isLateMarksExist?LateMarksData:null),
+                    build: (context) => pdfGenerator(data, userid,snap.data!.size==0?null:snap.data!.docs,LateMarkData.size==0?null:LateMarkData),
                   );
                 }else{
                   return LinearProgressIndicator();}

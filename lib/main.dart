@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:techer_mgmt/Utils/AppRoutes.dart';
 import 'package:techer_mgmt/Views/HomeScreen.dart';
 
+import 'Views/Feedback-Entry.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -30,15 +30,16 @@ class PersonalHistory extends StatelessWidget {
       appBar: AppBar(
         title: Text("Personal History"),
         elevation: 4,
-        actions: [
-          IconButton(
-              onPressed: () {
-                showSearch(
-                    context: context,
-                    delegate: SearchingClass(searchData));
-              },
-              icon: Icon(Icons.search_rounded))
-        ],
+        centerTitle: true,
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         showSearch(
+        //             context: context,
+        //             delegate: SearchingClass(searchData));
+        //       },
+        //       icon: Icon(Icons.search_rounded))
+        // ],
       ),
       body: SafeArea(
         child: StreamBuilder(

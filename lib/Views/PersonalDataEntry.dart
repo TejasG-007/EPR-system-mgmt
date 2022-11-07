@@ -35,6 +35,10 @@ class _DataEntryState extends State<DataEntry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Personal Data Entry"),
+        centerTitle: true,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: LayoutBuilder(
@@ -42,19 +46,6 @@ class _DataEntryState extends State<DataEntry> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Text(
-                    "Personal Data Entry",
-                    style: GoogleFonts.mulish(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        color: Colors.purpleAccent),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
                 Form(
                   key: formkey1,
                   child: Column(

@@ -776,7 +776,7 @@ Widget ResponsiveFeedback({
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DecoratedTextFormField(
-              fieldName: "Oral Feedback(%)",
+              fieldName: "Oral Feedback",
               size: constraints.maxWidth / 3,
               controller: Feedback_oral,
               key: TextInputType.text,
@@ -787,7 +787,7 @@ Widget ResponsiveFeedback({
               },
             ),
             DecoratedTextFormField(
-              fieldName: "Written Feedback(%)",
+              fieldName: "Written Feedback",
               size: constraints.maxWidth / 3,
               controller: Feedback_written,
               key: TextInputType.text,
@@ -826,46 +826,49 @@ Widget ResponsiveFeedback({
                         borderSide: const BorderSide(color: Colors.green)),
                   ),
                   controller: Feedback_Date,
-                  type: DateTimePickerType.dateTime,
+                  type: DateTimePickerType.date,
                   initialDate: DateTime.now(),
                   firstDate: DateTime(2000),
-                  lastDate: DateTime(2100)),
+                  lastDate: DateTime.now()),
             )
           ],
         )
       : Column(
           children: [
-            DateTimePicker(
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return "Feedback Date should not be Empty.";
-                  }
-                },
-                decoration: InputDecoration(
-                  prefix: Icon(
-                    Icons.calendar_today_outlined,
-                    color: Colors.purpleAccent,
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal:40),
+              child: DateTimePicker(
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return "Feedback Date should not be Empty.";
+                    }
+                  },
+                  decoration: InputDecoration(
+                    prefix: Icon(
+                      Icons.calendar_today_outlined,
+                      color: Colors.purpleAccent,
+                    ),
+                    labelText: "Feedback Date",
+                    labelStyle: GoogleFonts.mulish(color: Colors.green),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.green)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.purpleAccent)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.green)),
+                    disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.green)),
                   ),
-                  labelText: "Feedback Date",
-                  labelStyle: GoogleFonts.mulish(color: Colors.green),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.green)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.purpleAccent)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.green)),
-                  disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.green)),
-                ),
-                controller: Feedback_Date,
-                type: DateTimePickerType.dateTime,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2100)),
+                  controller: Feedback_Date,
+                  type: DateTimePickerType.date,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime.now()),
+            ),
             const SizedBox(
               height: 10,
             ),
@@ -880,7 +883,7 @@ Widget ResponsiveFeedback({
               height: 10,
             ),
             DecoratedTextFormField(
-              fieldName: "Written Feedback(%)",
+              fieldName: "Written Feedback",
               size: constraints.maxWidth / 1.5,
               controller: Feedback_written,
               key: TextInputType.text,
@@ -890,144 +893,6 @@ Widget ResponsiveFeedback({
         );
 }
 
-Widget ResponsiveFeedbackDialog({
-  required BoxConstraints constraints,
-  required TextEditingController Feedback_oral,
-  required TextEditingController Feedback_written,
-  required TextEditingController Feedback_Date,
-  required GlobalKey<FormState> key,
-}) {
-  return constraints.maxWidth > 450
-      ? Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DecoratedTextFormField(
-              fieldName: "Oral Feedback(%)",
-              size: constraints.maxWidth / 5,
-              controller: Feedback_oral,
-              key: TextInputType.text,
-              validator: (val) {
-                if (val!.isEmpty) {
-                  return "Oral Feedback should not be Empty.";
-                }
-              },
-            ),
-            DecoratedTextFormField(
-              fieldName: "Written Feedback(%)",
-              size: constraints.maxWidth / 5,
-              controller: Feedback_written,
-              key: TextInputType.text,
-              validator: (val) {
-                if (val!.isEmpty) {
-                  return "Written Feedback  should not be Empty.";
-                }
-              },
-            ),
-            Expanded(
-              flex: 2,
-              child: DateTimePicker(
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "Feedback Date should not be Empty.";
-                    }
-                  },
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.calendar_today_outlined),
-                    prefix: const Icon(
-                      Icons.calendar_today_outlined,
-                      color: Colors.purpleAccent,
-                    ),
-                    labelText: "Feedback Date",
-                    labelStyle: GoogleFonts.mulish(color: Colors.green),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.green)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            const BorderSide(color: Colors.purpleAccent)),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.green)),
-                    disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.green)),
-                  ),
-                  controller: Feedback_Date,
-                  type: DateTimePickerType.dateTime,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2100)),
-            ),
-            const SizedBox(
-              width: 10,
-            )
-          ],
-        )
-      : Column(
-          children: [
-            DateTimePicker(
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return "Feedback Date should not be Empty.";
-                  }
-                },
-                decoration: InputDecoration(
-                  prefix: const Icon(
-                    Icons.calendar_today_outlined,
-                    color: Colors.purpleAccent,
-                  ),
-                  labelText: "Feedback Date",
-                  labelStyle: GoogleFonts.mulish(color: Colors.green),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.green)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.purpleAccent)),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.green)),
-                  disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.green)),
-                ),
-                controller: Feedback_Date,
-                type: DateTimePickerType.dateTime,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2100)),
-            const SizedBox(
-              height: 10,
-            ),
-            DecoratedTextFormField(
-              fieldName: "Oral Feedback(%)",
-              size: constraints.maxWidth / 1.5,
-              controller: Feedback_oral,
-              key: TextInputType.text,
-              validator: (val) {
-                if (val!.isEmpty) {
-                  return "Oral Feedback should not be Empty.";
-                }
-              },
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            DecoratedTextFormField(
-              fieldName: "Written Feedback(%)",
-              size: constraints.maxWidth / 1.5,
-              controller: Feedback_written,
-              key: TextInputType.text,
-              validator: (val) {
-                if (val!.isEmpty) {
-                  return "Written Feedback should not be Empty.";
-                }
-              },
-            ),
-          ],
-        );
-}
 
 
 

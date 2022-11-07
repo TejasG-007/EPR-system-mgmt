@@ -14,6 +14,10 @@ class FeedbackandLateMarks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Feedback & Late-Marks"),
+        centerTitle: true,
+      ),
       body: LayoutBuilder(
         builder: (context, size) => SafeArea(
           child: StreamBuilder(
@@ -44,7 +48,10 @@ class FeedbackandLateMarks extends StatelessWidget {
                                     child: Column(
                                       children: [
                                        InkWell(
-                                         onTap: (){},
+                                         onTap: (){
+                                           Get.toNamed("/feedback-entry",arguments: [{"Personal-data":data},{"userid":snapshot.data!.docs[ind].id}]);
+
+                                         },
                                          hoverColor: Colors.teal,
                                          borderRadius: BorderRadius.circular(15),
                                           child: Container(

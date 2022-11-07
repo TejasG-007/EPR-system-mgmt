@@ -29,15 +29,16 @@ class DailyDataEntry extends StatelessWidget {
       appBar: AppBar(
         title: Text("Daily Data-Entry"),
         elevation: 4,
-        actions: [
-          IconButton(
-              onPressed: () {
-                showSearch(
-                    context: context,
-                    delegate: CustomeSearchDelagate(searchData));
-              },
-              icon: Icon(Icons.search_rounded))
-        ],
+        centerTitle: true,
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         showSearch(
+        //             context: context,
+        //             delegate: CustomeSearchDelagate(searchData));
+        //       },
+        //       icon: Icon(Icons.search_rounded))
+        // ],
       ),
       body: SafeArea(
         child: StreamBuilder(
@@ -163,7 +164,6 @@ class CustomeSearchDelagate extends SearchDelegate {
       itemCount: mainData.length,
       itemBuilder: (context, index) {
         var result = matchQuery[index];
-        print("here is result$result");
         return InkWell(
           onTap: () {
             result == "search Employee Name here"

@@ -1,15 +1,21 @@
 class FeedbackUpdate {
-  late Map Feedback;
+  late String feedback_written;
+  late String feedback_oral;
+  late String feedback_date;
 
-  FeedbackUpdate({required this.Feedback});
+  FeedbackUpdate({required this.feedback_date,required this.feedback_written,required this.feedback_oral});
 
   FeedbackUpdate.fromMap(Map<String, dynamic> map) {
-    this.Feedback = map["Feedback"];
+    this.feedback_oral = map["feedback_oral"];
+    this.feedback_written = map["feedback_written"];
+    this.feedback_date= map["feedback_date"];
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "Feedback": this.Feedback,
+      "feedback_date":this.feedback_date,
+      "feedback_oral":this.feedback_oral,
+      "feedback_written":this.feedback_written,
     };
   }
 }

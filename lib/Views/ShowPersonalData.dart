@@ -20,6 +20,7 @@ class _ShowPersonalDataState extends State<ShowPersonalData> {
   PersonalDataUpdate data = Get.arguments[0]["Personal data"];
   String userid = Get.arguments[1]["userid"];
   QuerySnapshot<Map<String, dynamic>> LateMarkData = Get.arguments[2]["lateMarks"];
+  QuerySnapshot<Map<String, dynamic>> Feedback = Get.arguments[3]["Feedback"];
   final controller = Get.put(ControllerState());
 
 @override
@@ -42,7 +43,7 @@ class _ShowPersonalDataState extends State<ShowPersonalData> {
                 //isLateMarksExist?LateMarksData
                 if(snap.hasData){
                   return PdfPreview(
-                    build: (context) => pdfGenerator(data, userid,snap.data!.size==0?null:snap.data!.docs,LateMarkData.size==0?null:LateMarkData),
+                    build: (context) => pdfGenerator(data, userid,snap.data!.size==0?null:snap.data!.docs,LateMarkData.size==0?null:LateMarkData,Feedback.size==0?null:Feedback),
                   );
                 }else{
                   return LinearProgressIndicator();}

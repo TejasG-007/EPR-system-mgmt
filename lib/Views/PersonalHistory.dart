@@ -68,6 +68,9 @@ class PersonalHistory extends StatelessWidget {
                                   {"userid": snapshot.data!.docs[ind].id},
                                   {"lateMarks":await FirebaseFirestore.instance
                                       .collection('Users').doc(snapshot.data!.docs[ind].id).collection("LateMarks")
+                                      .get()},
+                                  {"Feedback":await FirebaseFirestore.instance
+                                      .collection('Users').doc(snapshot.data!.docs[ind].id).collection("Feedback")
                                       .get()}
                                 ]);
                               },

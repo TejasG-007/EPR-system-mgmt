@@ -350,6 +350,16 @@ Future<Uint8List> pdfGenerator(PersonalDataUpdate data, String id,
                                     fontWeight: FontWeight.bold))
                           ]),
                           Column(children: [
+                            Text("Class",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold))
+                          ]),
+                          Column(children: [
+                            Text("Division",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold))
+                          ]),
+                          Column(children: [
                             Text("Oral-Feedback",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold))
@@ -359,6 +369,7 @@ Future<Uint8List> pdfGenerator(PersonalDataUpdate data, String id,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold))
                           ]),
+
                         ],
                       ),
                       ...feedback.docs.map((e) {
@@ -370,6 +381,16 @@ Future<Uint8List> pdfGenerator(PersonalDataUpdate data, String id,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: PdfColors.teal))
+                          ]),
+                          Column(children: [
+                            Text("${data.Class}",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold))
+                          ]),
+                          Column(children: [
+                            Text("${data.Division}",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold))
                           ]),
                           Column(children: [
                             Text("${data.feedback_oral}",
@@ -393,13 +414,3 @@ Future<Uint8List> pdfGenerator(PersonalDataUpdate data, String id,
 
   return pdf.save();
 }
-
-// Column(children: [
-// Text(
-// "${e.id}",
-// style: TextStyle(
-// color: PdfColors.cyan,
-// fontWeight: FontWeight.bold))
-// ]),
-// Column(children: [Text("${dd.Division}")]),
-// Column(children: [Text("${dd.Class}")]),

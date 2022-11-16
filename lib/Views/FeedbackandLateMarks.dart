@@ -13,7 +13,7 @@ class FeedbackandLateMarks extends StatelessWidget {
   TextEditingController Feedback_date = TextEditingController();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  List<Map<String, PersonalDataUpdate>> searchTerm = [{
+  List<Map<String, PersonalDataUpdate>> searchData = [{
     "id": PersonalDataUpdate(
         Userid: '',
         Name: "search Employee Name here",
@@ -36,7 +36,7 @@ class FeedbackandLateMarks extends StatelessWidget {
         title: Text("Feedback & Late-Marks"),
         centerTitle: true,
           actions: [
-            IconButton(onPressed: ()=>showSearch(context: context, delegate: CustomSearchDelegate(data: searchTerm)), icon: Icon(Icons.search))
+            IconButton(onPressed: ()=>showSearch(context: context, delegate: CustomSearchDelegate(data: searchData)), icon: Icon(Icons.search))
           ],
       ),
       body: LayoutBuilder(
@@ -57,7 +57,7 @@ class FeedbackandLateMarks extends StatelessWidget {
                         PersonalDataUpdate data = PersonalDataUpdate.fromMap(
                             snapshot.data!.docs[ind].data());
                         final id = snapshot.data!.docs[ind].id;
-                        searchTerm.add({id:data});
+                        searchData.add({id:data});
                         return InkWell(
                           onTap: () {
                             showDialog(

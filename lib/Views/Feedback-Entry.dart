@@ -81,7 +81,7 @@ class _FeedbackEntryState extends State<FeedbackEntry> {
                                   value: controller.firebaseClass.value,
                                   onChanged: (val) {
                                     controller.firebaseClass.value = val;
-                                    print(controller.firebaseClass.value);
+                                    //print(controller.firebaseClass.value);
                                   },
                                   choiceItems: C2Choice.listFrom<String, String>(
                                     source: controller.classesfromFirebase,
@@ -142,7 +142,7 @@ class _FeedbackEntryState extends State<FeedbackEntry> {
                                   value: controller.firebaseDivision.value,
                                   onChanged: (val) {
                                     controller.firebaseDivision.value = val;
-                                    print(controller.firebaseDivision.value);
+                                   // print(controller.firebaseDivision.value);
                                   },
                                   choiceItems: C2Choice.listFrom<String, String>(
                                     source: controller.divisionfromFirebase,

@@ -350,12 +350,12 @@ Future<Uint8List> pdfGenerator(PersonalDataUpdate data, String id,
                                     fontWeight: FontWeight.bold))
                           ]),
                           Column(children: [
-                            Text("Class",
+                            Text("Division",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold))
                           ]),
                           Column(children: [
-                            Text("Division",
+                            Text("Class",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold))
                           ]),

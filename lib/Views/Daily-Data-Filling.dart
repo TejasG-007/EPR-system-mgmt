@@ -17,8 +17,7 @@ class DailyDataFilling extends StatelessWidget {
   TextEditingController IdCard = TextEditingController();
   TextEditingController duty_Leave = TextEditingController();
 
-  PersonalDataUpdate data = Get.arguments[0]["Personal data"];
-  String userid = Get.arguments[1]["userid"];
+  String userid = Get.arguments[0]["userid"];
 
   final GlobalKey<FormState> _dailyFilling = GlobalKey<FormState>();
   final GlobalKey<FormState> leave = GlobalKey<FormState>();

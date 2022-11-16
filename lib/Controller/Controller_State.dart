@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 
 class ControllerState extends GetxController {
 
@@ -98,4 +99,15 @@ class ControllerState extends GetxController {
   RxString Signature = "NO".obs;
   RxString Uniform = "YES".obs;
   RxString Id_card = "NO".obs;
+
+
+ // ===========================Search===============
+
+RxList<Map<String,PersonalDataUpdate>> data = [{
+  "":PersonalDataUpdate(Userid: '', Name: 'Search Here', Classes: [], Subjects: [], Divisions: [], Papers: [], JoiningDate: '', DailyWorkLoad: '', Salary: {}, Mobile: '', Casual_Leave: {}, Duty_Leave: {})
+}].obs;
+
+
 }
+
+

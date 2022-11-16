@@ -155,7 +155,6 @@ class CustomSearchDelegate extends SearchDelegate {
         var result = final_list[index];
         PersonalDataUpdate personalData = result.entries.map((e)=>PersonalDataUpdate.fromMap(e.value)).toList()[0];
        String userid = result.entries.map((e)=>e.key).toString().substring(1,result.entries.map((e)=>e.key).toString().length-1);
-       print(personalData.Name);
         return ListTile(
             onTap: () async {
             Get.toNamed("/show-personal-data", arguments: [

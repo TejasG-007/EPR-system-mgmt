@@ -36,7 +36,7 @@ class FeedbackandLateMarks extends StatelessWidget {
         title: Text("Feedback & Late-Marks"),
         centerTitle: true,
           actions: [
-            IconButton(onPressed: ()=>showSearch(context: context, delegate: CustomSearchDelegate(data: searchData)), icon: Icon(Icons.search))
+            IconButton(onPressed: ()=>showSearch(context: context, delegate: SearchingClass(data: searchData)), icon: Icon(Icons.search))
           ],
       ),
       body: LayoutBuilder(
@@ -158,9 +158,9 @@ class FeedbackandLateMarks extends StatelessWidget {
   }
 }
 
-class CustomSearchDelegate extends SearchDelegate {
+class SearchingClass extends SearchDelegate {
   late List<Map<String,PersonalDataUpdate>> data;
-  CustomSearchDelegate({required this.data});
+  SearchingClass({required this.data});
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -206,7 +206,6 @@ class CustomSearchDelegate extends SearchDelegate {
         var result = final_list[index];
         PersonalDataUpdate personalData = result.entries.map((e)=>PersonalDataUpdate.fromMap(e.value)).toList()[0];
         String userid = result.entries.map((e)=>e.key).toString().substring(1,result.entries.map((e)=>e.key).toString().length-1);
-        print(personalData.Name);
         return ListTile(
           onTap: () {
             showDialog(

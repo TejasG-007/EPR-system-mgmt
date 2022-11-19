@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,7 +59,7 @@ class PersonalHistory extends StatelessWidget {
                 ? const Center(
                     child: CircularProgressIndicator(
                       color: Colors.purpleAccent,
-                      semanticsLabel: "Fetching Feedback data...",
+                      semanticsLabel: "Fetching data...",
                     ),
                   )
                 : ListView.builder(

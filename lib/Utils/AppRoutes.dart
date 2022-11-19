@@ -11,6 +11,7 @@ import '../Views/Daily-Data-Filling.dart';
 import '../Views/FeedbackandLateMarks.dart';
 import '../Views/HomeScreen.dart';
 import '../Views/ShowPersonalData.dart';
+import '../Views/WaytoGen.dart';
 
 appRoutes() => [
       GetPage(
@@ -76,6 +77,11 @@ appRoutes() => [
   GetPage(
       name: "/PersonalEntry-Edit",
       page: () => PersonalDataEdit(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 500)),
+  GetPage(
+      name: "/Wayto-Gen",
+      page: () => WaytoGenerate(),
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 500)),
 

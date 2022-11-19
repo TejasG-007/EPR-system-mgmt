@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
+import 'package:techer_mgmt/Modal/DailyUpdate.dart';
+import 'package:techer_mgmt/Modal/LateMarks.dart';
 import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
+import '../Modal/FeedbackUpdate.dart';
 
 class ControllerState extends GetxController {
-
-
   /////////////////////For Late Marks//////////////////////////////
-   List<String> classesfromFirebase = [""].obs;
+  List<String> classesfromFirebase = [""].obs;
   List<String> divisionfromFirebase = [""].obs;
 
   ///////////////////////////////////////////////////
@@ -61,6 +62,7 @@ class ControllerState extends GetxController {
   ButtonEnabled() {
     isdisabled.value = false;
   }
+
   //////////////////////////////
   RxBool isdisabled2 = false.obs;
 
@@ -71,6 +73,7 @@ class ControllerState extends GetxController {
   ButtonEnabled2() {
     isdisabled2.value = false;
   }
+
 /////////////////////////////////////////////
   RxBool isdisabled3 = false.obs;
 
@@ -81,6 +84,7 @@ class ControllerState extends GetxController {
   ButtonEnabled3() {
     isdisabled3.value = false;
   }
+
   ///////////////////////////////////////////
   var totalSalary = 0.0.obs;
   var salGov = 0.0.obs;
@@ -100,14 +104,93 @@ class ControllerState extends GetxController {
   RxString Uniform = "YES".obs;
   RxString Id_card = "NO".obs;
 
+  // ===========================Search===============
 
- // ===========================Search===============
+  RxList<Map<String, PersonalDataUpdate>> data = [
+    {
+      "": PersonalDataUpdate(
+          Userid: '',
+          Name: 'Search Here',
+          Classes: [],
+          Subjects: [],
+          Divisions: [],
+          Papers: [],
+          JoiningDate: '',
+          DailyWorkLoad: '',
+          Salary: {},
+          Mobile: '',
+          Casual_Leave: {},
+          Duty_Leave: {})
+    }
+  ].obs;
+//==============================Report==========================================
+  var value = "".obs;
 
-RxList<Map<String,PersonalDataUpdate>> data = [{
-  "":PersonalDataUpdate(Userid: '', Name: 'Search Here', Classes: [], Subjects: [], Divisions: [], Papers: [], JoiningDate: '', DailyWorkLoad: '', Salary: {}, Mobile: '', Casual_Leave: {}, Duty_Leave: {})
-}].obs;
+  List<String> feedbackDate = [""].obs;
+  getFeedbackDate(List<DateTime?>? data) {
+    feedbackDate.clear();
+    if (data!.isNotEmpty) {
+      if(data.length==1){
+        for(var date in data){
+          feedbackDate.add(date.toString().substring(0, 11));
+          feedbackDate.add(date.toString().substring(0, 11));
+        }
+      }else{
+        for (var item in data) {
+          feedbackDate.add(item.toString().substring(0, 11));
+        }
+      }
+    }
+  }
 
 
+  List<String> LateMarksDate = [""].obs;
+  getLateMarksDate(List<DateTime?>? data) {
+    LateMarksDate.clear();
+    if (data!.isNotEmpty) {
+      if(data.length==1){
+        for(var date in data){
+          LateMarksDate.add(date.toString().substring(0, 11));
+          LateMarksDate.add(date.toString().substring(0, 11));
+        }
+      }else{
+        for (var item in data) {
+          LateMarksDate.add(item.toString().substring(0, 11));
+        }
+      }
+    }
+  }
+
+  List<String> DailyUpdateDate = [""].obs;
+  getDailyUpdateDate(List<DateTime?>? data) {
+    DailyUpdateDate.clear();
+    if (data!.isNotEmpty) {
+      if(data.length==1){
+        for(var date in data){
+          DailyUpdateDate.add(date.toString().substring(0, 11));
+          DailyUpdateDate.add(date.toString().substring(0, 11));
+        }
+      }else{
+        for (var item in data) {
+          DailyUpdateDate.add(item.toString().substring(0, 11));
+        }
+      }
+
+    }
+  }
+
+
+
+  List<FeedbackUpdate> feedbackDataR = [
+    FeedbackUpdate(
+        feedback_date: '',
+        feedback_written: '',
+        feedback_oral: '',
+        Division: '',
+        Class: '')
+  ].obs;
+  List<LateMarks> LateMarksDataR = [LateMarks(Division: '', Class: '', Date: '')].obs;
+  List<DailyUpdate> DailyDataEntryR = [
+   DailyUpdate(Signature: '', Remark: '', DSP: '', DSC: '', Uniform: '', IdCard: '', Date: '')
+  ].obs;
 }
-
-

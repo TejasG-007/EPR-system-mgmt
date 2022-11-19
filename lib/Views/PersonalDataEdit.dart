@@ -9,14 +9,33 @@ import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 import '../Utils/Utils.dart';
 
 
-class PersonalDataEntry extends StatefulWidget {
-  const PersonalDataEntry({Key? key}) : super(key: key);
+class PersonalDataEdit extends StatefulWidget {
+  const PersonalDataEdit({Key? key}) : super(key: key);
 
   @override
-  State<PersonalDataEntry> createState() => _PersonalDataEntryState();
+  State<PersonalDataEdit> createState() => _PersonalDataEditState();
 }
 
-class _PersonalDataEntryState extends State<PersonalDataEntry> {
+class _PersonalDataEditState extends State<PersonalDataEdit> {
+
+  PersonalDataUpdate arg = Get.arguments[0]["PersonalData"];
+  String  userid = Get.arguments[1]["userid"];
+
+  @override
+  void initState() {
+    UniqueId.text = arg.Userid;
+    Name.text = arg.Name;
+    JoiningDate.text = arg.JoiningDate;
+    Salary_gov.text = arg.Salary["Salary_gov"];
+    Salary_pvt.text = arg.Salary["Salary_pvt"];
+    controller.classes_real.value = arg.Classes.map((e) => e.toString()).toList();
+    controller.division_real.value =arg.Divisions.map((e) => e.toString()).toList();
+    controller.papers_real.value = arg.Papers.map((e) => e.toString()).toList();
+    controller.subjects_real.value = arg.Subjects.map((e) => e.toString()).toList();
+    Mobile.text =arg.Mobile;
+    super.initState();
+  }
+
 
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -37,7 +56,17 @@ class _PersonalDataEntryState extends State<PersonalDataEntry> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Personal Data Entry"),
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
+        ),
+        title: Text(
+          "Personal-Data Edit",
+          style: GoogleFonts.gugi(color: Colors.white),
+        ),
+        elevation: 4,
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
@@ -374,7 +403,7 @@ class _PersonalDataEntryState extends State<PersonalDataEntry> {
                         try {
                           await firestore
                               .collection("Users")
-                              .add(PersonalDataUpdate(
+                              .doc(userid).update(PersonalDataUpdate(
                               Userid: UniqueId.text,
                               Name: Name.text,
                               Classes:

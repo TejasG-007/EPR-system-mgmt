@@ -57,6 +57,13 @@ Future<Uint8List> pdfGenerator(PersonalDataUpdate data, String id,
                     .replaceAll("]", " ")),
               ]),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Text("Subjects"),
+                Text(" : "),
+                Text(data.Subjects.toString()
+                    .replaceAll("[", " ")
+                    .replaceAll("]", " ")),
+              ]),
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Text("Divisions"),
                 Text(" : "),
                 Text(data.Divisions.toString()

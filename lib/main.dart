@@ -5,20 +5,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:techer_mgmt/Utils/AppRoutes.dart';
 import 'package:techer_mgmt/Views/HomeScreen.dart';
 
-import 'Views/Feedback-Entry.dart';
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: const FirebaseOptions(
-          apiKey: "AIzaSyB-BfXy-N7ReDsHueaoVBMqkhiFbZR1bh8",
-          authDomain: "db-mgmt-teacher.firebaseapp.com",
-          projectId: "db-mgmt-teacher",
-          storageBucket: "db-mgmt-teacher.appspot.com",
-          messagingSenderId: "971322426050",
-          appId: "1:971322426050:web:269ab80eedd87d5b04315b",
-          measurementId: "G-9L7KJS28KY"));
+          apiKey: "AIzaSyAvL9zU4IK1_3zdT4BRpIAGkdf3sbY-ZGQ",
+          authDomain: "teacher-db-10399.firebaseapp.com",
+          projectId: "teacher-db-10399",
+          storageBucket: "teacher-db-10399.appspot.com",
+          messagingSenderId: "539855020282",
+          appId: "1:539855020282:web:a4a51034f3088caf252943",
+          measurementId: "G-MVTQQ6P3SZ"));
   runApp(MyApp());
 }
 
@@ -29,19 +26,14 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-            textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
-              bodyText1: GoogleFonts.oswald(textStyle: textTheme.bodyText1),
-              bodyText2: GoogleFonts.mulish(textStyle: textTheme.bodyText2),
-
-
-          ),
-          useMaterial3: true),
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          color: Color(0xFFBA94D1)
+        ),
+      ),
       getPages: appRoutes(),
       initialRoute: '/home',
-      home: HomeScreen(),
+      home: const HomeScreen(), //ReportGenerator(),
     );
   }
 }
-
-
-

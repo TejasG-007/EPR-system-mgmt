@@ -35,10 +35,20 @@ class _DataEntryState extends State<DataEntry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Personal Data Entry"),
-        centerTitle: true,
-      ),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back,color: Colors.white,),
+          ),
+          title: Text(
+            "Personal Data-Entry",
+            style: GoogleFonts.gugi(color: Colors.white),
+          ),
+          elevation: 4,
+          centerTitle: true,
+        ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: LayoutBuilder(

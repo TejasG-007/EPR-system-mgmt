@@ -16,11 +16,13 @@ class DailyDataFilling extends StatelessWidget {
   TextEditingController Uniform = TextEditingController();
   TextEditingController IdCard = TextEditingController();
   TextEditingController duty_Leave = TextEditingController();
+  TextEditingController casual_Leave = TextEditingController();
 
   String userid = Get.arguments[0]["userid"];
 
   final GlobalKey<FormState> _dailyFilling = GlobalKey<FormState>();
   final GlobalKey<FormState> leave = GlobalKey<FormState>();
+  final GlobalKey<FormState> leave2 = GlobalKey<FormState>();
 
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
@@ -40,14 +42,18 @@ class DailyDataFilling extends StatelessWidget {
           },
           label: Text("Manage Leaves")),
       appBar: AppBar(
-        title: Text("Person Name"),
-        actions: [Container()],
         leading: IconButton(
-          onPressed: () {
+          onPressed: (){
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
         ),
+        title: Text(
+          "Daily-Entry",
+          style: GoogleFonts.gugi(color: Colors.white),
+        ),
+        elevation: 4,
+        centerTitle: true,
       ),
       drawer: Drawer(
           child: Container(
@@ -357,6 +363,107 @@ class DailyDataFilling extends StatelessWidget {
                             ]),
                         child: Column(
                           children: [
+                            Text("Add Casual Leave"),
+                            Form(
+                              key: leave2,
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                validator: MultiValidator([
+                                  RequiredValidator(
+                                      errorText:
+                                          "Casual Leave should not be null"),
+                                  PatternValidator(r'^[0-9]+$',
+                                      errorText:
+                                          "Casual Leave should be in Integer only.")
+                                ]),
+                                cursorRadius: const Radius.circular(3),
+                                cursorColor: Colors.purpleAccent,
+                                controller: casual_Leave,
+                                decoration: InputDecoration(
+                                  labelText: "Add Casual Leave",
+                                  labelStyle:
+                                      GoogleFonts.mulish(color: Colors.green),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.green)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.purpleAccent)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.green)),
+                                  disabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                          color: Colors.green)),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Obx(() => controller.isdisabled2.value
+                                ? Container(
+                                    alignment: Alignment.center,
+                                    child:
+                                        Text("Please wait while Submitting..."),
+                                  )
+                                : FloatingActionButton(
+                                    backgroundColor: Colors.purpleAccent,
+                                    tooltip: "Add Duty Leave",
+                                    heroTag: "duty_leave",
+                                    onPressed: () async {
+                                      if (leave2.currentState!.validate()) {
+                                        controller.ButtonDisabled2();
+                                        await _firebaseFirestore
+                                            .collection("Users")
+                                            .doc(userid)
+                                            .update({
+                                          "Casual_Leave": {
+                                            "Casual_Leave_Avaialable":
+                                                int.parse(casual_Leave.text),
+                                            "Leave_Taken":
+                                                data.Casual_Leave["Leave_Taken"],
+                                          }
+                                        }).then((value) {
+                                          Scaffold.of(context).closeDrawer();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      "${casual_Leave.text} Casual Leave Added Successfully.")));
+                                          controller.ButtonEnabled2();
+                                        });
+                                      }
+                                    },
+                                    child: Icon(
+                                      Icons.add_circle_outline_outlined,
+                                      color: Colors.white,
+                                    ))),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(3),
+                        margin: EdgeInsets.all(5),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: const [
+                              BoxShadow(
+                                  spreadRadius: 1,
+                                  blurRadius: 4,
+                                  offset: Offset(1, 1),
+                                  color: Colors.grey)
+                            ]),
+                        child: Column(
+                          children: [
                             Text("Take Duty Leave"),
                             SizedBox(
                               height: 10,
@@ -481,7 +588,7 @@ class DailyDataFilling extends StatelessWidget {
                                               DSP: DSP.text,
                                               DSC: DSC.text,
                                               Uniform: controller.Uniform.value,
-                                              IdCard: controller.Id_card.value)
+                                              IdCard: controller.Id_card.value, Date: DateTime.now().toString().substring(0,11))
                                           .toMap())
                                       .then((value) {
                                     HomeBackAlertDialog(context);

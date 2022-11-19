@@ -5,6 +5,7 @@ class DailyUpdate {
   late String  DSC;
   late String  Uniform;
   late String  IdCard;
+  late String  Date;
 
   DailyUpdate({
     required this.Signature,
@@ -13,6 +14,7 @@ class DailyUpdate {
     required this.DSC,
     required this.Uniform,
     required this.IdCard,
+    required this.Date,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,6 +25,7 @@ class DailyUpdate {
       "DSC": this.DSC,
       "Uniform": this.Uniform,
       "IdCard": this.IdCard,
+      "Date": this.Date,
 
     };
   }
@@ -34,6 +37,7 @@ class DailyUpdate {
     this.DSC=map["DSC"];
     this.Uniform=map["Uniform"];
     this.IdCard=map["IdCard"];
+    this.Date=map["Date"];
   }
 
 

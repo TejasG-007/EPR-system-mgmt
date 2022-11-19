@@ -30,7 +30,16 @@ class PersonalHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Personal History"),
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
+        ),
+        title: Text(
+          "Personal History",
+          style: GoogleFonts.gugi(color: Colors.white),
+        ),
         elevation: 4,
         centerTitle: true,
         actions: [
@@ -40,7 +49,7 @@ class PersonalHistory extends StatelessWidget {
                     context: context,
                     delegate: CustomSearchDelegate(data: searchData));
               },
-              icon: Icon(Icons.search_rounded))
+              icon: Icon(Icons.search_rounded,color: Colors.white,))
         ],
       ),
       body: SafeArea(
@@ -81,12 +90,19 @@ class PersonalHistory extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5),
                               child: ListTile(
                                 trailing:ElevatedButton.icon(
-                                  icon: Icon(Icons.mode_edit_outlined,color: Colors.white,),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red.shade100
+                                  ),
+                                  icon: Icon(Icons.mode_edit_outlined,color: Colors.black,),
 
                                   onPressed: (){
-                                    Get.toNamed('/PersonalEntry-Edit');
+                                    Get.toNamed('/PersonalEntry-Edit',arguments: [
+                                      {"PersonalData": data},{"userid": snapshot.data!.docs[ind].id}
+                                        ]);
                                   },
-                                  label: Text("Edit"),
+                                  label: Text("Edit",style: GoogleFonts.mulish(
+                                    color: Colors.black
+                                  ),),
                                 ),
                                 title: Text(
                                   data.Name,

@@ -48,13 +48,24 @@ class _FeedbackEntryState extends State<FeedbackEntry> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Feedback Entry"),
+          leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back,color: Colors.white,),
+          ),
+          title: Text(
+            "Feedback-Entry",
+            style: GoogleFonts.gugi(color: Colors.white),
+          ),
+          elevation: 4,
           centerTitle: true,
         ),
         body: LayoutBuilder(
             builder: (context, size) => SingleChildScrollView(
               child: Column(
                     children: [
+                      SizedBox(height: 10,),
                       Container(
 
                         padding: EdgeInsets.all(10),

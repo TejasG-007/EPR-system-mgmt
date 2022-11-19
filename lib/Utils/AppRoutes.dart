@@ -2,8 +2,11 @@ import 'package:get/get.dart';
 import 'package:techer_mgmt/Views/Daily-Data-Entry.dart';
 import 'package:techer_mgmt/Views/Feedback-Entry.dart';
 import 'package:techer_mgmt/Views/LateEntryView.dart';
+import 'package:techer_mgmt/Views/PersonalDataEdit.dart';
 import 'package:techer_mgmt/Views/PersonalDataEntry.dart';
 import 'package:techer_mgmt/Views/PersonalHistory.dart';
+import 'package:techer_mgmt/Views/ReportGenrator.dart';
+import 'package:techer_mgmt/Views/showReportVdata.dart';
 import '../Views/Daily-Data-Filling.dart';
 import '../Views/FeedbackandLateMarks.dart';
 import '../Views/HomeScreen.dart';
@@ -57,6 +60,22 @@ appRoutes() => [
   GetPage(
       name: '/feedback-entry',
       page: () => FeedbackEntry(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 500)),
+  GetPage(
+      name: '/report-gen',
+      page: () => ReportGenerator(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 500)),
+
+  GetPage(
+      name: "/showReportVdata",
+      page: () => showReportVdata(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 500)),
+  GetPage(
+      name: "/PersonalEntry-Edit",
+      page: () => PersonalDataEdit(),
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 500)),
 

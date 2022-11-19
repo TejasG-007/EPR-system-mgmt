@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
               ),
               Row(
                 children: [
-                  boxTiles('/home', size,
+                  boxTiles('/report-gen', size,
                       "assets/images/Feedback Report.png", "Report-Generator"),
                   boxTiles('/home', size, "assets/images/help-desk.png",
                       "Help-Desk"),

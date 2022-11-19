@@ -40,14 +40,20 @@ class _LateEntryState extends State<LateEntry> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Late Entry",
-          style: GoogleFonts.mulish(
-              fontWeight: FontWeight.bold, color: Colors.teal),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back,color: Colors.white,),
+          ),
+          title: Text(
+            "LateMarks Data-Entry",
+            style: GoogleFonts.gugi(color: Colors.white),
+          ),
+          elevation: 4,
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
       backgroundColor: Colors.white,
       //View all late entry in bottomsheet
       body:SingleChildScrollView(
@@ -55,6 +61,7 @@ class _LateEntryState extends State<LateEntry> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 10,),
               Text(
                   "Select Class and Division from Below for adding Late Marks"),
               SizedBox(height: 20,),
@@ -175,7 +182,7 @@ class _LateEntryState extends State<LateEntry> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                   ],
@@ -184,10 +191,10 @@ class _LateEntryState extends State<LateEntry> {
               Obx(() => controller.isdisabled.value
                   ? Container(
                 alignment: Alignment.center,
-                child: Text("Please wait while Submitting..."),
+                child: const Text("Please wait while Submitting..."),
               )
                   : Container(
-                margin: EdgeInsets.symmetric(
+                margin: const EdgeInsets.symmetric(
                     horizontal: 40, vertical: 20),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -228,14 +235,14 @@ class _LateEntryState extends State<LateEntry> {
                                         .toString(),
                                     Class: controller
                                         .firebaseClass
-                                        .toString())
+                                        .toString(), Date: DateTime.now().toString().substring(0,11))
                                     .toMap()
                               }).then((value) {
                                 showDialog(
                                     context: context,
                                     builder:
                                         (context) => AlertDialog(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.done,
                                         color: Colors.green,
                                       ),
@@ -299,14 +306,14 @@ class _LateEntryState extends State<LateEntry> {
                                         .toString(),
                                     Class: controller
                                         .firebaseClass
-                                        .toString())
+                                        .toString(), Date: DateTime.now().toString().substring(0,11))
                                     .toMap()
                               }).then((value) {
                                 showDialog(
                                     context: context,
                                     builder:
                                         (context) => AlertDialog(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.done,
                                         color: Colors.green,
                                       ),
@@ -359,7 +366,7 @@ class _LateEntryState extends State<LateEntry> {
                           showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.cancel_outlined,
                                   color: Colors.red,
                                 ),
@@ -373,7 +380,7 @@ class _LateEntryState extends State<LateEntry> {
                                             .ButtonEnabled();
                                         Get.back();
                                       },
-                                      icon: Icon(
+                                      icon: const Icon(
                                           Icons.arrow_back))
                                 ],
                               ));

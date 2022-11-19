@@ -7,11 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 
 class FeedbackandLateMarks extends StatelessWidget {
-  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
-  TextEditingController Feedback_oral = TextEditingController();
-  TextEditingController Feedback_written = TextEditingController();
-  TextEditingController Feedback_date = TextEditingController();
-  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  final TextEditingController Feedback_oral = TextEditingController();
+  final TextEditingController Feedback_written = TextEditingController();
+  final TextEditingController Feedback_date = TextEditingController();
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   List<Map<String, PersonalDataUpdate>> searchData = [{
     "id": PersonalDataUpdate(
@@ -33,10 +33,20 @@ class FeedbackandLateMarks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Feedback & Late-Marks"),
-        centerTitle: true,
+        leading: IconButton(
+        onPressed: (){
+      Get.back();
+    },
+    icon: Icon(Icons.arrow_back,color: Colors.white,),
+    ),
+    title: Text(
+    "Feedback and Late-Marks",
+    style: GoogleFonts.gugi(color: Colors.white),
+    ),
+    elevation: 4,
+    centerTitle: true,
           actions: [
-            IconButton(onPressed: ()=>showSearch(context: context, delegate: SearchingClass(data: searchData)), icon: Icon(Icons.search))
+            IconButton(onPressed: ()=>showSearch(context: context, delegate: SearchingClass(data: searchData)), icon: Icon(Icons.search,color: Colors.white,))
           ],
       ),
       body: LayoutBuilder(
@@ -288,13 +298,13 @@ class SearchingClass extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     var matchQuery = [];
-    for (Map<String,PersonalDataUpdate> fruit in data) {
-      for(var ent in fruit.entries){
-        if (ent.value.Name.toLowerCase().contains(query.toLowerCase())) {
-          matchQuery.add(fruit);
-        }
-      }
-    }
+    // for (Map<String,PersonalDataUpdate> fruit in data) {
+    //   for(var ent in fruit.entries){
+    //     if (ent.value.Name.toLowerCase().contains(query.toLowerCase())) {
+    //       //matchQuery.add(fruit);
+    //     }
+    //   }
+    // }
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {

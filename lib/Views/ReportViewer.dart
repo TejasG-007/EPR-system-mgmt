@@ -115,7 +115,7 @@ Future<Uint8List> ReportViewer(
                   ]),
                   TableRow(children: [
                     Column(children: [
-                      Text("Salary PVT"),
+                      Text("Salary Pkg"),
                     ])
                     ,Column(children: [
                       Text("Rs. ${Salary["Salary_pvt"]}"),
@@ -252,6 +252,16 @@ Future<Uint8List> ReportViewer(
                               style:
                               TextStyle(fontWeight: FontWeight.bold))
                         ]),
+                        Column(children: [
+                          Text("Reward",
+                              style:
+                              TextStyle(fontWeight: FontWeight.bold))
+                        ]),
+                        Column(children: [
+                          Text("Penalty",
+                              style:
+                              TextStyle(fontWeight: FontWeight.bold))
+                        ]),
                       ]),
                       ...dailyData.map((dd) {
                         if(dd.Uniform=="YES"){
@@ -278,6 +288,8 @@ Future<Uint8List> ReportViewer(
                           Column(children: [Text("${dd.DSC}")]),
                           Column(children: [Text("${dd.DSP}")]),
                           Column(children: [Text("${dd.IdCard}")]),
+                          Column(children: [Text("${dd.Reward}")]),
+                          Column(children: [Text("${dd.Penalty}")]),
                         ]);
 
                       }),

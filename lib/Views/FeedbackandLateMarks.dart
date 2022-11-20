@@ -1,4 +1,6 @@
+
 import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +48,7 @@ class FeedbackandLateMarks extends StatelessWidget {
     elevation: 4,
     centerTitle: true,
           actions: [
-            IconButton(onPressed: ()=>showSearch(context: context, delegate: SearchingClassForFeedback(data: searchData)), icon: Icon(Icons.search,color: Colors.white,))
+            IconButton(onPressed: ()=>showSearch(context: context, delegate: CustomSearchDelegate(data: searchData)), icon: Icon(Icons.search,color: Colors.white,))
           ],
       ),
       body: LayoutBuilder(
@@ -75,7 +77,10 @@ class FeedbackandLateMarks extends StatelessWidget {
                                 builder: (context) => AlertDialog(
                                 title: Text("Select Entry Point",style: GoogleFonts.nunito(
                                   color: Colors.black,
-                                ),),
+                                ),), actions: [
+                                  ElevatedButton(onPressed: (){Get.toNamed('/home');}, child: Text("Home")),
+                                  ElevatedButton(onPressed: (){Get.back();}, child: Text("Close")),
+                                ],
                                   content: SingleChildScrollView(
                                     child: Column(
                                       children: [
@@ -168,9 +173,10 @@ class FeedbackandLateMarks extends StatelessWidget {
   }
 }
 
-class SearchingClassForFeedback extends SearchDelegate {
+
+class CustomSearchDelegate extends SearchDelegate {
   late List<Map<String,PersonalDataUpdate>> data;
-  SearchingClassForFeedback({required this.data});
+  CustomSearchDelegate({required this.data});
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -285,6 +291,10 @@ class SearchingClassForFeedback extends SearchDelegate {
                       ],
                     ),
                   ),
+                  actions: [
+                    ElevatedButton(onPressed: (){Get.toNamed('/home');}, child: Text("Home")),
+                    ElevatedButton(onPressed: (){Get.back();}, child: Text("Close")),
+                  ],
                 ));
           },
           title: Text(result.entries.map((e)=>PersonalDataUpdate.fromMap(e.value).Name).toString().replaceAll("(","").replaceAll(")", "")),
@@ -297,18 +307,18 @@ class SearchingClassForFeedback extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     var matchQuery = [];
-    // for (Map<String,PersonalDataUpdate> fruit in data) {
-    //   for(var ent in fruit.entries){
-    //     if (ent.value.Name.toLowerCase().contains(query.toLowerCase())) {
-    //       //matchQuery.add(fruit);
-    //     }
-    //   }
-    // }
+    for (Map<String,PersonalDataUpdate> fruit in data) {
+      for(var ent in fruit.entries){
+        if (ent.value.Name.toLowerCase().contains(query.toLowerCase())) {
+          matchQuery.add(fruit);
+        }
+      }
+    }
     return ListView.builder(
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
         // var result = matchQuery[index];
-        //print(matchQuery);
+        print(matchQuery);
         return Container();
         // return ListTile(
         //   title:  Text(result.entries.map((e)=>e.value.Name).toString().replaceAll("(","").replaceAll(")", "")),
@@ -317,3 +327,4 @@ class SearchingClassForFeedback extends SearchDelegate {
     );
   }
 }
+

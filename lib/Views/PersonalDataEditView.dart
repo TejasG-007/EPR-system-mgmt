@@ -80,6 +80,27 @@ class PersonalDataEditView extends StatelessWidget {
                         splashColor: Colors.green,
                         borderRadius: BorderRadius.circular(5),
                         child: ListTile(
+                          trailing: IconButton(
+                            onPressed: ()async{
+                              showDialog(context: context, builder: (context)=>AlertDialog(
+                                icon: Icon(Icons.warning,color: Colors.yellow,),
+                                title: Text("Do you really want to Delete?"),
+                                actions: [
+                                  ElevatedButton(onPressed: ()async{
+                                    await _firebaseFirestore.collection("Users").doc(id).delete().then((value) {
+                                      Get.back();
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Record has been deleted.")));
+                                    }
+                                    );
+                                  }, child: Text("Yes")),
+                                  ElevatedButton(onPressed: (){
+                                    Get.back();
+                                  }, child: Text("No")),
+                                ],
+                              ));
+                              },
+                            icon: Icon(Icons.delete,color: Colors.red,),
+                          ),
                           title: Text(
                             data.Name,
                             style: GoogleFonts.mulish(),

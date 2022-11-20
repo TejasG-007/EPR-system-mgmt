@@ -1,10 +1,10 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
+
 
 class FeedbackandLateMarks extends StatelessWidget {
   final TextEditingController Feedback_oral = TextEditingController();
@@ -46,7 +46,7 @@ class FeedbackandLateMarks extends StatelessWidget {
     elevation: 4,
     centerTitle: true,
           actions: [
-            IconButton(onPressed: ()=>showSearch(context: context, delegate: SearchingClass(data: searchData)), icon: Icon(Icons.search,color: Colors.white,))
+            IconButton(onPressed: ()=>showSearch(context: context, delegate: SearchingClassForFeedback(data: searchData)), icon: Icon(Icons.search,color: Colors.white,))
           ],
       ),
       body: LayoutBuilder(
@@ -168,9 +168,9 @@ class FeedbackandLateMarks extends StatelessWidget {
   }
 }
 
-class SearchingClass extends SearchDelegate {
+class SearchingClassForFeedback extends SearchDelegate {
   late List<Map<String,PersonalDataUpdate>> data;
-  SearchingClass({required this.data});
+  SearchingClassForFeedback({required this.data});
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [

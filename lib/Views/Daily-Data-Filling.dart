@@ -17,6 +17,8 @@ class DailyDataFilling extends StatelessWidget {
   TextEditingController IdCard = TextEditingController();
   TextEditingController duty_Leave = TextEditingController();
   TextEditingController casual_Leave = TextEditingController();
+  TextEditingController Reward = TextEditingController();
+  TextEditingController Penalty = TextEditingController();
 
   String userid = Get.arguments[0]["userid"];
 
@@ -550,6 +552,8 @@ class DailyDataFilling extends StatelessWidget {
                   Remark: Remark,
                   DSP: DSP,
                   DSC: DSC,
+                  Reward: Reward,
+                  Penalty: Penalty
                 ),
                 SizedBox(
                   height: 10,
@@ -582,6 +586,8 @@ class DailyDataFilling extends StatelessWidget {
                                           .toString()
                                           .substring(0, 11))
                                       .set(DailyUpdate(
+                                    Reward: Reward.text,
+                                              Penalty: Penalty.text,
                                               Signature:
                                                   controller.Signature.value,
                                               Remark: Remark.text,

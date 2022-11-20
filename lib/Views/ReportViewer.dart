@@ -18,6 +18,9 @@ Future<Uint8List> ReportViewer(
   int SignCount = 0;
   int totalDailyDataEntryCount = dailyData.length;
   PersonalDataUpdate data = PersonalDataUpdate.fromMap(personalData);
+  Map Salary = data.Salary;
+  Map Casual_Leave = data.Casual_Leave;
+  Map Duty_Leave = data.Duty_Leave;
   final pdf = Document();
   pdf.addPage(MultiPage(
       build: (Context context) => [
@@ -33,54 +36,62 @@ Future<Uint8List> ReportViewer(
             ],
           ),
           SizedBox(height: 10),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Text("Employee id"),
-            Text(" : "),
-            Text(data.Userid),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Text("Name"),
-            Text(" : "),
-            Text(data.Name),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Text("JoiningDate"),
-            Text(" : "),
-            Text(data.JoiningDate),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Text("Mobile"),
-            Text(" : "),
-            Text(data.Mobile),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Text("Classes"),
-            Text(" : "),
-            Text(data.Classes.toString()
-                .replaceAll("[", " ")
-                .replaceAll("]", " ")),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Text("Subjects"),
-            Text(" : "),
-            Text(data.Subjects.toString()
-                .replaceAll("[", " ")
-                .replaceAll("]", " ")),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Text("Divisions"),
-            Text(" : "),
-            Text(data.Divisions.toString()
-                .replaceAll("[", " ")
-                .replaceAll("]", " ")),
-          ]),
-          Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Text("Papers"),
-            Text(" : "),
-            Text(data.Papers.toString()
-                .replaceAll("[", " ")
-                .replaceAll("]", " ")),
-          ]),
+          Table(
+              children: [
+                TableRow(children: [
+                  Text("Employee id"),
+                  Text(" : "),
+                  Text(data.Userid),
+                ]),
+                TableRow(children: [
+                  Text("Name"),
+                  Text(" : "),
+                  Text(data.Name),
+                ]),
+                TableRow(children: [
+                  Text("JoiningDate"),
+                  Text(" : "),
+                  Text(data.JoiningDate),
+                ]),
+                TableRow(children: [
+                  Text("Mobile"),
+                  Text(" : "),
+                  Text(data.Mobile),
+                ]),TableRow(children: [
+                  Text("Daily Work Load"),
+                  Text(" : "),
+                  Text(data.DailyWorkLoad),
+                ]),
+                TableRow(children: [
+                  Text("Classes"),
+                  Text(" : "),
+                  Text(data.Classes.toString()
+                      .replaceAll("[", " ")
+                      .replaceAll("]", " ")),
+                ]),
+                TableRow(children: [
+                  Text("Subjects"),
+                  Text(" : "),
+                  Text(data.Subjects.toString()
+                      .replaceAll("[", " ")
+                      .replaceAll("]", " ")),
+                ]),
+                TableRow(children: [
+                  Text("Divisions"),
+                  Text(" : "),
+                  Text(data.Divisions.toString()
+                      .replaceAll("[", " ")
+                      .replaceAll("]", " ")),
+                ]),
+                TableRow(children: [
+                  Text("Papers"),
+                  Text(" : "),
+                  Text(data.Papers.toString()
+                      .replaceAll("[", " ")
+                      .replaceAll("]", " ")),
+                ]),
+              ]
+          ),
           SizedBox(height: 10),
           Divider(indent: 10, endIndent: 10, height: .4),
           SizedBox(height: 10),
@@ -94,12 +105,34 @@ Future<Uint8List> ReportViewer(
             Table(
                 border: TableBorder.all(color: PdfColors.black),
                 children: [
-                  ...data.Salary.keys.toList().map((e) => TableRow(
-                      children: [
-                        Padding(
-                            child: Text("${e} : ${data.Salary[e]}"),
-                            padding: EdgeInsets.all(5))
-                      ]))
+                  TableRow(children: [
+                    Column(children: [
+                      Text("Salary GOV"),
+                    ])
+                    ,Column(children: [
+                      Text("Rs. ${Salary["Salary_gov"]}"),
+                    ])
+                  ]),
+                  TableRow(children: [
+                    Column(children: [
+                      Text("Salary PVT"),
+                    ])
+                    ,Column(children: [
+                      Text("Rs. ${Salary["Salary_pvt"]}"),
+                    ])
+                  ]),
+                  TableRow(children: [
+                    Column(children: [
+                      Text("Salary Total",style: TextStyle(
+                          color: PdfColors.black,
+                          fontWeight: FontWeight.bold)),
+                    ])
+                    ,Column(children: [
+                      Text("Rs. ${Salary["Salary_total"]}",style: TextStyle(
+                          color: PdfColors.black,
+                          fontWeight: FontWeight.bold)),
+                    ])
+                  ]),
                 ])
           ]),
           SizedBox(height: 10),
@@ -113,14 +146,25 @@ Future<Uint8List> ReportViewer(
             Table(
                 border: TableBorder.all(color: PdfColors.black),
                 children: [
-                  ...data.Casual_Leave.keys
-                      .toList()
-                      .map((e) => TableRow(children: [
-                    Padding(
-                        child:
-                        Text("${e} : ${data.Casual_Leave[e]}"),
-                        padding: EdgeInsets.all(5))
-                  ]))
+                  TableRow(children: [
+                    Column(children: [
+                      Text("Casual Leave Taken"),
+                    ])
+                    ,Column(children: [
+                      Text("${Casual_Leave["Leave_Taken"]}"),
+                    ])
+                  ]),
+                  TableRow(children: [
+                    Column(children: [
+                      Text("Casual Leave Available",style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                    ])
+                    ,Column(children: [
+                      Text("${Casual_Leave["Casual_Leave_Avaialable"]}",style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                    ])
+                  ]),
+
                 ])
           ]),
           SizedBox(height: 10),
@@ -134,12 +178,25 @@ Future<Uint8List> ReportViewer(
             Table(
                 border: TableBorder.all(color: PdfColors.black),
                 children: [
-                  ...data.Duty_Leave.keys.toList().map((e) => TableRow(
-                      children: [
-                        Padding(
-                            child: Text("${e} : ${data.Duty_Leave[e]}"),
-                            padding: EdgeInsets.all(5))
-                      ]))
+                  TableRow(children: [
+                    Column(children: [
+                      Text("Duty Leave Taken"),
+                    ])
+                    ,Column(children: [
+                      Text("${Duty_Leave["Leave_Taken"]}"),
+                    ])
+                  ]),
+                  TableRow(children: [
+                    Column(children: [
+                      Text("Duty Leave Available",style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                    ])
+                    ,Column(children: [
+                      Text("${Duty_Leave["Duty_Leave_Available"]}",style: TextStyle(
+                          fontWeight: FontWeight.bold)),
+                    ])
+                  ]),
+
                 ]),
           ]),
           SizedBox(height: 10),

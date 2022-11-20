@@ -65,19 +65,3 @@ class PersonalDataUpdate {
   }
 }
 
-
-
-
-
-//Feedback: {
-//                   Feedback_date.text
-//                       .toString()
-//                       .substring(0, 11): {
-//                     "OralFeedback":
-//                         Feedback_oral.text,
-//                     "WrittenFeedback":
-//                         Feedback_written.text,
-//                     "FeedbackDate":
-//                         Feedback_date.text
-//                   }
-//                 },

@@ -33,7 +33,25 @@ class _PersonalDataEditState extends State<PersonalDataEdit> {
     controller.papers_real.value = arg.Papers.map((e) => e.toString()).toList();
     controller.subjects_real.value = arg.Subjects.map((e) => e.toString()).toList();
     Mobile.text =arg.Mobile;
+    DailyWorkLoad.text =arg.DailyWorkLoad;
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    UniqueId.dispose();
+    Name.dispose();
+    JoiningDate.dispose();
+    Salary_pvt.dispose();
+    Salary_gov.dispose();
+    DailyWorkLoad.dispose();
+    Papers.dispose();
+    Classes.dispose();
+    Divisions.dispose();
+    Mobile.dispose();
+    Subjects.dispose();
+    super.dispose();
   }
 
 
@@ -134,6 +152,35 @@ class _PersonalDataEditState extends State<PersonalDataEdit> {
                                 constraint: size,
                                 Salary_gov: Salary_gov,
                                 Salary_pvt: Salary_pvt,
+                                key: formkey1),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin:
+                        EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        padding:
+                        EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: .7,
+                                  blurRadius: 8,
+                                  blurStyle: BlurStyle.inner,
+                                  offset: Offset(1, 1))
+                            ]),
+                        child: Column(
+                          children: [
+                            IconHeading("Daily Work Details", size),
+                            ResonsiveDailyWorkLoad(
+                                constraint: size,
+                                dailyworkload: DailyWorkLoad,
                                 key: formkey1),
                           ],
                         ),
@@ -433,25 +480,58 @@ class _PersonalDataEditState extends State<PersonalDataEdit> {
                                 "Leave_Taken": 0
                               }).toMap())
                               .then((value) {
+                            WidgetsBinding.instance.addPostFrameCallback((_){
 
-                            HomeBackAlertDialog(context);
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    icon: Icon(Icons.done,color: Colors.green,),
+                                    title: Text("Submitted Successfully.",style: GoogleFonts.mulish(
+                                        color: Colors.black),),
+                                    actions: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            shape:
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius
+                                                    .circular(
+                                                    10))),
+                                        onPressed: () {
+                                         Get.back();
+                                        },
+                                        child: Text(
+                                          "OKAY",
+                                          style: GoogleFonts.mulish(),
+                                        ),
+                                      )
+                                    ],
+                                  ));
+
+                            });
+
                             controller.ButtonEnabled();
 
                           });
                         } catch (e) {
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                icon: Icon(Icons.cancel_outlined,color: Colors.red,),
-                                title: Text("Please try again.",style: GoogleFonts.mulish(
-                                    color: Colors.black)),
-                                actions: [
-                                  IconButton(onPressed: (){
-                                    controller.ButtonEnabled();
-                                    Get.back();
-                                  }, icon:Icon(Icons.arrow_back))
-                                ],
-                              ));
+                          WidgetsBinding.instance.addPostFrameCallback((_){
+
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  icon: Icon(Icons.cancel_outlined,color: Colors.red,),
+                                  title: Text("Please try again.",style: GoogleFonts.mulish(
+                                      color: Colors.black)),
+                                  actions: [
+                                    IconButton(onPressed: (){
+                                      controller.ButtonEnabled();
+                                      Get.back();
+                                    }, icon:Icon(Icons.arrow_back))
+                                  ],
+                                ));
+
+                          });
+
                         }
                       }
                     },

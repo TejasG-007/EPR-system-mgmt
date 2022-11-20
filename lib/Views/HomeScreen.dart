@@ -53,8 +53,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   boxTiles('/report-gen', size,
                       "assets/images/Feedback Report.png", "Report-Generator"),
-                  boxTiles('/home', size, "assets/images/help-desk.png",
-                      "Help-Desk"),
+                  boxTiles('/PersonalDataEditView', size, "assets/images/person-edit.png",
+                      "Personal Data Edit"),
                 ],
               ),
               Row(
@@ -105,19 +105,21 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                imgPath,
-                scale: 5,
-              ),
-              Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.all(5),
-                child: Text(
-                  label,
-                  style: GoogleFonts.mulish(
-                      fontWeight: FontWeight.bold, fontSize: 24),
-                ),
-              )
+             Expanded(child:  Container(
+               margin: EdgeInsets.only(top: 10),
+               child: Image.asset(
+               imgPath,
+             ),)),
+             Expanded(child:  Container(
+               padding: EdgeInsets.all(8),
+               alignment: Alignment.center,
+               margin: const EdgeInsets.all(5),
+               child: Text(
+                 label,
+                 style: GoogleFonts.mulish(
+                     fontWeight: FontWeight.bold, fontSize: 24),
+               ),
+             )),
             ],
           )),
     ));

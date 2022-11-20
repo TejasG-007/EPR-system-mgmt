@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 
-class PersonalHistory extends StatelessWidget {
+class PersonalDataEditView extends StatelessWidget {
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   List<Map<String, PersonalDataUpdate>> searchData = [{
@@ -36,7 +36,7 @@ class PersonalHistory extends StatelessWidget {
           icon: Icon(Icons.arrow_back,color: Colors.white,),
         ),
         title: Text(
-          "Personal History",
+          "Way to Personal Data Edit ",
           style: GoogleFonts.gugi(color: Colors.white),
         ),
         elevation: 4,
@@ -46,7 +46,7 @@ class PersonalHistory extends StatelessWidget {
               onPressed: () {
                 showSearch(
                     context: context,
-                    delegate: CustomSearchDelegate(data: searchData));
+                    delegate: SearchingForNames(data: searchData));
               },
               icon: Icon(Icons.search_rounded,color: Colors.white,))
         ],
@@ -55,76 +55,53 @@ class PersonalHistory extends StatelessWidget {
         child: StreamBuilder(
             stream: _firebaseFirestore.collection('Users').snapshots(),
             builder: (context, snapshot) => snapshot.connectionState ==
-                    ConnectionState.waiting && !snapshot.hasData
+                ConnectionState.waiting && !snapshot.hasData
                 ? const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.purpleAccent,
-                      semanticsLabel: "Fetching data...",
-                    ),
-                  )
+              child: CircularProgressIndicator(
+                color: Colors.purpleAccent,
+                semanticsLabel: "Fetching data...",
+              ),
+            )
                 : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (ctx, ind) {
-                      PersonalDataUpdate data = PersonalDataUpdate.fromMap(
-                          snapshot.data!.docs[ind].data());
-                      final id = snapshot.data!.docs[ind].id;
-                      searchData.add({id:data});
-                      return Container(
-                          child: InkWell(
-                              onTap: () async{
-                                Get.toNamed("/show-personal-data",
-                                    arguments: [
-                                  {"Personal data": data},
-                                  {"userid": snapshot.data!.docs[ind].id},
-                                  {"lateMarks":await FirebaseFirestore.instance
-                                      .collection('Users').doc(snapshot.data!.docs[ind].id).collection("LateMarks")
-                                      .get()},
-                                  {"Feedback":await FirebaseFirestore.instance
-                                      .collection('Users').doc(snapshot.data!.docs[ind].id).collection("Feedback")
-                                      .get()}
-                                ]);
-                              },
-                              splashColor: Colors.green,
-                              borderRadius: BorderRadius.circular(5),
-                              child: ListTile(
-                                // trailing:ElevatedButton.icon(
-                                //   style: ElevatedButton.styleFrom(
-                                //     backgroundColor: Colors.red.shade100
-                                //   ),
-                                //   icon: Icon(Icons.mode_edit_outlined,color: Colors.black,),
-                                //
-                                //   onPressed: (){
-                                //     Get.toNamed('/PersonalEntry-Edit',arguments: [
-                                //       {"PersonalData": data},{"userid": snapshot.data!.docs[ind].id}
-                                //         ]);
-                                //   },
-                                //   label: Text("Edit",style: GoogleFonts.mulish(
-                                //     color: Colors.black
-                                //   ),),
-                                // ),
-                                title: Text(
-                                  data.Name,
-                                  style: GoogleFonts.mulish(),
-                                ),
-                                subtitle: Text(
-                                  "+91 ${data.Mobile}",
-                                  style: GoogleFonts.openSans(),
-                                ),
-                                isThreeLine: true,
-                                enableFeedback: true,
-                              )));
-                    },
-                  )),
+              shrinkWrap: true,
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (ctx, ind) {
+                PersonalDataUpdate data = PersonalDataUpdate.fromMap(
+                    snapshot.data!.docs[ind].data());
+                final id = snapshot.data!.docs[ind].id;
+                searchData.add({id:data});
+                return Container(
+                    child: InkWell(
+                        onTap: () async{
+                          Get.toNamed('/PersonalEntry-Edit',arguments: [
+                            {"PersonalData": data},{"userid": snapshot.data!.docs[ind].id}
+                          ]);
+                        },
+                        splashColor: Colors.green,
+                        borderRadius: BorderRadius.circular(5),
+                        child: ListTile(
+                          title: Text(
+                            data.Name,
+                            style: GoogleFonts.mulish(),
+                          ),
+                          subtitle: Text(
+                            "+91 ${data.Mobile}",
+                            style: GoogleFonts.openSans(),
+                          ),
+                          isThreeLine: true,
+                          enableFeedback: true,
+                        )));
+              },
+            )),
       ),
     );
   }
 }
 
 
-class CustomSearchDelegate extends SearchDelegate {
+class SearchingForNames extends SearchDelegate {
   late List<Map<String,PersonalDataUpdate>> data;
-  CustomSearchDelegate({required this.data});
+  SearchingForNames({required this.data});
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -169,21 +146,21 @@ class CustomSearchDelegate extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = final_list[index];
         PersonalDataUpdate personalData = result.entries.map((e)=>PersonalDataUpdate.fromMap(e.value)).toList()[0];
-       String userid = result.entries.map((e)=>e.key).toString().substring(1,result.entries.map((e)=>e.key).toString().length-1);
+        String userid = result.entries.map((e)=>e.key).toString().substring(1,result.entries.map((e)=>e.key).toString().length-1);
         return ListTile(
-            onTap: () async {
+          onTap: () async {
             Get.toNamed("/show-personal-data", arguments: [
-                {"Personal data": personalData},
-                {"userid": userid},
-                {"lateMarks":await FirebaseFirestore.instance
-                    .collection('Users').doc(userid).collection("LateMarks")
-                    .get(),
-                },
+              {"Personal data": personalData},
+              {"userid": userid},
+              {"lateMarks":await FirebaseFirestore.instance
+                  .collection('Users').doc(userid).collection("LateMarks")
+                  .get(),
+              },
               {"Feedback":await FirebaseFirestore.instance
                   .collection('Users').doc(userid).collection("Feedback")
                   .get()}
-              ]);
-            },
+            ]);
+          },
           title: Text(result.entries.map((e)=>PersonalDataUpdate.fromMap(e.value).Name).toString().replaceAll("(","").replaceAll(")", "")),
         );
       },

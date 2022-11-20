@@ -91,6 +91,48 @@ Widget ResonsiveSalary({
         );
 }
 
+Widget ResonsiveDailyWorkLoad({
+  required BoxConstraints constraint,
+  required TextEditingController dailyworkload,
+  required GlobalKey<FormState> key,
+}) {
+  return constraint.maxWidth > 450
+      ? Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DecoratedTextFormField(
+                size: constraint.maxWidth / 2.5,
+                controller: dailyworkload,
+                fieldName: "Daily Work Load",
+                key: TextInputType.text,
+                prefix: const Icon(
+                  Icons.content_paste_go_sharp,
+                  color: Colors.green,
+                ),
+                validator:MultiValidator([
+            RequiredValidator(errorText: "Daily Work Load should not be null"),
+          ])),
+          ],
+        )
+      : Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            DecoratedTextFormField(
+                size: constraint.maxWidth / 1.5,
+                controller: dailyworkload,
+                fieldName: "Daily Work Load",
+                key: TextInputType.text,
+                prefix: const Icon(
+                  Icons.content_paste_go_sharp,
+                  color: Colors.green,
+                ),
+                validator:MultiValidator([
+                  RequiredValidator(errorText: "Daily Work Load should not be null"),
+                ])),
+          ],
+        );
+}
+
 final c = Get.put(ControllerState());
 
 Widget DecoratedTextFormField(
@@ -314,8 +356,9 @@ Widget ResponsiveDailyDataDetails({
   required TextEditingController Remark,
   required TextEditingController DSP,
   required TextEditingController DSC,
+  required TextEditingController Reward,
+  required TextEditingController Penalty,
 
-  
 }) {
   return constraints.maxWidth > 550
       ?Column(
@@ -478,6 +521,38 @@ Widget ResponsiveDailyDataDetails({
                 validator: MultiValidator(
                     [
                       RequiredValidator(errorText: "Remark should not be null"),
+                      // PatternValidator(r'(^(?:[+0]9)?[0-9]{10,12}$)',errorText: "Please Enter Valid Mobile Number")
+                    ]
+                )
+
+            ),
+          ],
+        ),
+      SizedBox(height: 20,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DecoratedTextFormField(
+                size: constraints.maxWidth / 5,
+                controller: Reward,
+                fieldName: "Reward",
+                key: TextInputType.text,
+                validator: MultiValidator(
+                    [
+                      RequiredValidator(errorText: "Reward should not be null"),
+                      // PatternValidator(r'(^(?:[+0]9)?[0-9]{10,12}$)',errorText: "Please Enter Valid Mobile Number")
+                    ]
+                )
+
+            ),
+            DecoratedTextFormField(
+                size: constraints.maxWidth / 5,
+                controller: Penalty,
+                fieldName: "Penalty",
+                key: TextInputType.text,
+                validator: MultiValidator(
+                    [
+                      RequiredValidator(errorText: "Penalty should not be null"),
                       // PatternValidator(r'(^(?:[+0]9)?[0-9]{10,12}$)',errorText: "Please Enter Valid Mobile Number")
                     ]
                 )
@@ -649,7 +724,34 @@ Widget ResponsiveDailyDataDetails({
                   ]
               )
 
+          ),SizedBox(height: 10,),
+          DecoratedTextFormField(
+              size: constraints.maxWidth / 1.5,
+              controller: Reward,
+              fieldName: "Reward",
+              key: TextInputType.text,
+              validator: MultiValidator(
+                  [
+                    RequiredValidator(errorText: "Reward should not be null"),
+                    // PatternValidator(r'(^(?:[+0]9)?[0-9]{10,12}$)',errorText: "Please Enter Valid Mobile Number")
+                  ]
+              )
+
           ),
+          SizedBox(height: 10,),
+          DecoratedTextFormField(
+              size: constraints.maxWidth / 1.5,
+              controller: Penalty,
+              fieldName: "Penalty",
+              key: TextInputType.text,
+              validator: MultiValidator(
+                  [
+                    RequiredValidator(errorText: "Penalty should not be null"),
+                    // PatternValidator(r'(^(?:[+0]9)?[0-9]{10,12}$)',errorText: "Please Enter Valid Mobile Number")
+                  ]
+              )
+
+          ),SizedBox(height: 10,),
         ],
       ),
     ],

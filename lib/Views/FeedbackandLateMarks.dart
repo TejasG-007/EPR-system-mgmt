@@ -230,7 +230,6 @@ class SearchingClass extends SearchDelegate {
                         InkWell(
                           onTap: (){
                             Get.toNamed("/feedback-entry",arguments: [{"Personal-data":personalData},{"userid":userid}]);
-
                           },
                           hoverColor: Colors.teal,
                           borderRadius: BorderRadius.circular(15),

@@ -191,6 +191,6 @@ class ControllerState extends GetxController {
   ].obs;
   List<LateMarks> LateMarksDataR = [LateMarks(Division: '', Class: '', Date: '')].obs;
   List<DailyUpdate> DailyDataEntryR = [
-   DailyUpdate(Signature: '', Remark: '', DSP: '', DSC: '', Uniform: '', IdCard: '', Date: '')
+   DailyUpdate(Signature: '', Remark: '', DSP: '', DSC: '', Uniform: '', IdCard: '', Date: '', Reward: '', Penalty: '')
   ].obs;
 }

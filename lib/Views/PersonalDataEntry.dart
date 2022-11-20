@@ -123,6 +123,35 @@ class _DataEntryState extends State<DataEntry> {
                       ),
                       Container(
                         margin:
+                        EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                        padding:
+                        EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.grey,
+                                  spreadRadius: .7,
+                                  blurRadius: 8,
+                                  blurStyle: BlurStyle.inner,
+                                  offset: Offset(1, 1))
+                            ]),
+                        child: Column(
+                          children: [
+                            IconHeading("Daily Work Details", size),
+                            ResonsiveDailyWorkLoad(
+                                constraint: size,
+                                dailyworkload: DailyWorkLoad,
+                                key: formkey1),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        margin:
                             EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                         padding:
                             EdgeInsets.symmetric(horizontal: 5, vertical: 10),

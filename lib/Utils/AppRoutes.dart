@@ -10,6 +10,7 @@ import 'package:techer_mgmt/Views/showReportVdata.dart';
 import '../Views/Daily-Data-Filling.dart';
 import '../Views/FeedbackandLateMarks.dart';
 import '../Views/HomeScreen.dart';
+import '../Views/PersonalDataEditView.dart';
 import '../Views/ShowPersonalData.dart';
 import '../Views/WaytoGen.dart';
 
@@ -82,6 +83,11 @@ appRoutes() => [
   GetPage(
       name: "/Wayto-Gen",
       page: () => WaytoGenerate(),
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 500)),
+GetPage(
+      name: "/PersonalDataEditView",
+      page: () => PersonalDataEditView(),
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 500)),
 

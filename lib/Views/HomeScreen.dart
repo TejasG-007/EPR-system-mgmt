@@ -1,13 +1,36 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+
+
+class _HomeScreenState extends State<HomeScreen> {
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   leading: Container(),
+      //   actions: [
+      //     IconButton(onPressed: ()async{
+      //       try{
+      //         await FirebaseAuth.instance.signOut();
+      //       }catch(e){
+      //         print(e);
+      //       }
+      //     }, icon: Icon(Icons.logout_outlined))
+      //   ],
+      // ),
       body: LayoutBuilder(
         builder: (context, size) => SafeArea(
           child: ListView(

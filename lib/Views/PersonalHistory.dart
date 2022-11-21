@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 
 class PersonalHistory extends StatelessWidget {
-  FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   List<Map<String, PersonalDataUpdate>> searchData = [{
     "id": PersonalDataUpdate(

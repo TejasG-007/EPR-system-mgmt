@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:techer_mgmt/Utils/AppRoutes.dart';
-import 'package:techer_mgmt/Views/HomeScreen.dart';
+
+import 'Views/UserAuth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +32,11 @@ class MyApp extends StatelessWidget {
         ),
       ),
       getPages: appRoutes(),
-      initialRoute: '/home',
-      home: const HomeScreen(), //ReportGenerator(),
+      initialRoute: '/userauth',
+      home:UserAuthScreen(), //ReportGenerator(),
     );
   }
 }
+
+
+

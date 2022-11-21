@@ -193,4 +193,18 @@ class ControllerState extends GetxController {
   List<DailyUpdate> DailyDataEntryR = [
    DailyUpdate(Signature: '', Remark: '', DSP: '', DSC: '', Uniform: '', IdCard: '', Date: '', Reward: '', Penalty: '')
   ].obs;
+
+
+
+
+  ////////////////////////////////////////////////////////////////User Auth
+
+  var isPasswordHidden = true.obs;
+
+  ShowPassword(){
+  isPasswordHidden.value = !(isPasswordHidden.value);
+  }
+
+
+
 }

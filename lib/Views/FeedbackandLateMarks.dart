@@ -1,21 +1,27 @@
 
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 
+class FeedbackLateView extends StatefulWidget {
+  const FeedbackLateView({Key? key}) : super(key: key);
 
-class FeedbackandLateMarks extends StatelessWidget {
+  @override
+  State<FeedbackLateView> createState() => _FeedbackLateViewState();
+}
+
+class _FeedbackLateViewState extends State<FeedbackLateView> {
+
   final TextEditingController Feedback_oral = TextEditingController();
   final TextEditingController Feedback_written = TextEditingController();
   final TextEditingController Feedback_date = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-  List<Map<String, PersonalDataUpdate>> searchData = [{
+  final List<Map<String, PersonalDataUpdate>> searchData = [{
     "id": PersonalDataUpdate(
         Userid: '',
         Name: "search Employee Name here",
@@ -36,142 +42,143 @@ class FeedbackandLateMarks extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-        onPressed: (){
-      Get.back();
-    },
-    icon: Icon(Icons.arrow_back,color: Colors.white,),
-    ),
-    title: Text(
-    "Feedback and Late-Marks",
-    style: GoogleFonts.gugi(color: Colors.white),
-    ),
-    elevation: 4,
-    centerTitle: true,
-          actions: [
-            IconButton(onPressed: ()=>showSearch(context: context, delegate: CustomSearchDelegate(data: searchData)), icon: Icon(Icons.search,color: Colors.white,))
-          ],
+          onPressed: (){
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back,color: Colors.white,),
+        ),
+        title: Text(
+          "Feedback and Late-Marks",
+          style: GoogleFonts.gugi(color: Colors.white),
+        ),
+        elevation: 4,
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: ()=>showSearch(context: context, delegate: CustomSearchDelegate(data: searchData)), icon: Icon(Icons.search,color: Colors.white,))
+        ],
       ),
       body: LayoutBuilder(
         builder: (context, size) => SafeArea(
           child: StreamBuilder(
               stream: _firebaseFirestore.collection('Users').snapshots(),
               builder: (context, snapshot) => snapshot.connectionState ==
-                      ConnectionState.waiting
+                  ConnectionState.waiting
                   ? const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.purpleAccent,
-                        semanticsLabel: "Fetching Feedback data...",
-                      ),
-                    )
+                child: CircularProgressIndicator(
+                  color: Colors.purpleAccent,
+                  semanticsLabel: "Fetching Feedback data...",
+                ),
+              )
                   : ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (ctx, ind) {
-                        PersonalDataUpdate data = PersonalDataUpdate.fromMap(
-                            snapshot.data!.docs[ind].data());
-                        final id = snapshot.data!.docs[ind].id;
-                        searchData.add({id:data});
-                        return InkWell(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                title: Text("Select Entry Point",style: GoogleFonts.nunito(
-                                  color: Colors.black,
-                                ),), actions: [
-                                  ElevatedButton(onPressed: (){Get.toNamed('/home');}, child: Text("Home")),
-                                  ElevatedButton(onPressed: (){Get.back();}, child: Text("Close")),
-                                ],
-                                  content: SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                       InkWell(
-                                         onTap: (){
-                                           Get.toNamed("/feedback-entry",arguments: [{"Personal-data":data},{"userid":snapshot.data!.docs[ind].id}]);
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (ctx, ind) {
+                  PersonalDataUpdate data = PersonalDataUpdate.fromMap(
+                      snapshot.data!.docs[ind].data());
+                  final id = snapshot.data!.docs[ind].id;
+                  searchData.add({id:data});
+                  return InkWell(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("Select Entry Point",style: GoogleFonts.nunito(
+                              color: Colors.black,
+                            ),), actions: [
+                            ElevatedButton(onPressed: (){Get.toNamed('/home');}, child: Text("Home")),
+                            ElevatedButton(onPressed: (){Get.back();}, child: Text("Close")),
+                          ],
+                            content: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  InkWell(
+                                    onTap: (){
+                                      Get.toNamed("/feedback-entry",arguments: [{"Personal-data":data},{"userid":snapshot.data!.docs[ind].id}]);
 
-                                         },
-                                         hoverColor: Colors.teal,
-                                         borderRadius: BorderRadius.circular(15),
-                                          child: Container(
-                                            margin: EdgeInsets.all(2),
-                                            padding: EdgeInsets.all(15),
-                                            decoration:BoxDecoration(
-                                                borderRadius: BorderRadius.circular(15),
-                                                color: Colors.white,
-                                                boxShadow: const [
-                                                  BoxShadow(
-                                                      spreadRadius: 1,
-                                                      blurRadius: 4,
-                                                      offset: Offset(1, 1),
-                                                      color: Colors.grey)
-                                                ]),
-                                            child: Column(
-                                              children: [
-                                                Icon(Icons.feedback_outlined,color: Colors.purpleAccent,size: 80,)
-                                                ,Text("Feedback-Entry",style: GoogleFonts.mulish(),)
-                                              ],
-                                            ),
-                                          ),
-                                       ),
-                                        SizedBox(height: 10,),
-                                        InkWell(
-                                          onTap: (){
-                                            Get.toNamed("/late-entry",arguments: [{"Personal-data":data},{"userid":snapshot.data!.docs[ind].id}]);
-                                          },
-                                          hoverColor: Colors.teal,
+                                    },
+                                    hoverColor: Colors.teal,
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Container(
+                                      margin: EdgeInsets.all(2),
+                                      padding: EdgeInsets.all(15),
+                                      decoration:BoxDecoration(
                                           borderRadius: BorderRadius.circular(15),
-                                          child: Container(
-                                            margin: EdgeInsets.all(2),
-                                            padding: EdgeInsets.all(15),
-                                            decoration:BoxDecoration(
-                                                borderRadius: BorderRadius.circular(15),
-                                                color: Colors.white,
-                                                boxShadow: const [
-                                                  BoxShadow(
-                                                      spreadRadius: 1,
-                                                      blurRadius: 4,
-                                                      offset: Offset(1, 1),
-                                                      color: Colors.grey)
-                                                ]),
-                                            child: Column(
-                                              children: [
-                                                Icon(Icons.directions_run_outlined,color: Colors.purpleAccent,size: 80,)
-                                                ,Text("Late-Entry",style: GoogleFonts.mulish(),)
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
+                                          color: Colors.white,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                spreadRadius: 1,
+                                                blurRadius: 4,
+                                                offset: Offset(1, 1),
+                                                color: Colors.grey)
+                                          ]),
+                                      child: Column(
+                                        children: [
+                                          Icon(Icons.feedback_outlined,color: Colors.purpleAccent,size: 80,)
+                                          ,Text("Feedback-Entry",style: GoogleFonts.mulish(),)
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ));
-                          },
-                          hoverColor: Colors.purpleAccent,
-                          splashColor: Colors.green,
-                          borderRadius: BorderRadius.circular(10),
-                          child: ListTile(
-                            leading: const Icon(
-                              Icons.person_pin,
-                              color: Colors.green,
+                                  SizedBox(height: 10,),
+                                  InkWell(
+                                    onTap: (){
+                                      Get.toNamed("/late-entry",arguments: [{"Personal-data":data},{"userid":snapshot.data!.docs[ind].id}]);
+                                    },
+                                    hoverColor: Colors.teal,
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Container(
+                                      margin: EdgeInsets.all(2),
+                                      padding: EdgeInsets.all(15),
+                                      decoration:BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                          color: Colors.white,
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                spreadRadius: 1,
+                                                blurRadius: 4,
+                                                offset: Offset(1, 1),
+                                                color: Colors.grey)
+                                          ]),
+                                      child: Column(
+                                        children: [
+                                          Icon(Icons.directions_run_outlined,color: Colors.purpleAccent,size: 80,)
+                                          ,Text("Late-Entry",style: GoogleFonts.mulish(),)
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                            style: ListTileStyle.list,
-                            dense: true,
-                            title: Text(
-                              "Name: ${data.Name}",
-                              style: GoogleFonts.mulish(),
-                            ),
-                            subtitle: Text(
-                              "Mobile:+91 ${data.Mobile}",
-                              style: GoogleFonts.openSans(),
-                            ),
-                          ),
-                        );
-                      },
-                    )),
+                          ));
+                    },
+                    hoverColor: Colors.purpleAccent,
+                    splashColor: Colors.green,
+                    borderRadius: BorderRadius.circular(10),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.person_pin,
+                        color: Colors.green,
+                      ),
+                      style: ListTileStyle.list,
+                      dense: true,
+                      title: Text(
+                        "Name: ${data.Name}",
+                        style: GoogleFonts.mulish(),
+                      ),
+                      subtitle: Text(
+                        "Mobile:+91 ${data.Mobile}",
+                        style: GoogleFonts.openSans(),
+                      ),
+                    ),
+                  );
+                },
+              )),
         ),
       ),
     );
   }
 }
+
 
 
 class CustomSearchDelegate extends SearchDelegate {

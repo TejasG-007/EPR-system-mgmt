@@ -56,7 +56,7 @@ class UserAuthScreen extends StatelessWidget{
                          style: GoogleFonts.mulish(),
                          autofocus: true,
                          controller: _username,
-                         keyboardType: TextInputType.number,
+                         keyboardType: TextInputType.text,
                          cursorColor: Colors.purpleAccent,
                          cursorHeight: .2,
                          cursorRadius: Radius.circular(10),

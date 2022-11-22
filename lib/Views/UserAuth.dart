@@ -156,10 +156,8 @@ class UserAuthScreen extends StatelessWidget{
                  ),
                ),
                SizedBox(height: 50,),
-               controller.isdisabled.value?Container(
-                 width: 100,
-                 height: 100,
-                 child: CircularProgressIndicator(),
+               Obx(() => controller.isdisabled.value?Container(
+                 child: CircularProgressIndicator(backgroundColor: Colors.purple,color: Colors.grey,),
                ):Container(
                    margin: EdgeInsets.symmetric(horizontal: 40),
                    child:ClipRRect(
@@ -194,7 +192,7 @@ class UserAuthScreen extends StatelessWidget{
                            icon: Icon(Icons.arrow_forward_rounded,color: Colors.white,),
                          ),
                        )
-                   )
+                   ))
                )
              ],
            ),

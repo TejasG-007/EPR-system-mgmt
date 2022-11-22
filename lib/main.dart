@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:techer_mgmt/Utils/AppRoutes.dart';
+import 'package:techer_mgmt/Views/HomeScreen.dart';
 
 import 'Views/UserAuth.dart';
 
@@ -61,8 +62,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       getPages: appRoutes(),
-      initialRoute: '/userauth',
-      home:UserAuthScreen(), //ReportGenerator(),
+      initialRoute: '/home',
+      home:HomeScreen(), //ReportGenerator(),
     );
   }
 }

@@ -15,6 +15,7 @@ import '../Views/FeedbackandLateMarks.dart';
 import '../Views/HomeScreen.dart';
 import '../Views/PersonalDataEditView.dart';
 import '../Views/ShowPersonalData.dart';
+import '../Views/ShowViewForFLH.dart';
 import '../Views/WaytoGen.dart';
 
 List<GetPage> appRoutes() => [
@@ -108,10 +109,16 @@ List<GetPage> appRoutes() => [
           middlewares: [HomeMiddleware()],
           transition: Transition.fadeIn,
           transitionDuration: Duration(milliseconds: 500)),
+  GetPage(
+          name: "/showuserFLH",
+          page: () => ShowHistory(),
+          middlewares: [HomeMiddleware()],
+          transition: Transition.fadeIn,
+          transitionDuration: Duration(milliseconds: 500)),
     ];
 
 
 class HomeMiddleware extends GetMiddleware{
   @override
-  RouteSettings? redirect(String? route)=> FirebaseAuth.instance.currentUser!=null?null:route!='/userauth'?RouteSettings(name: '/userauth'):null;
+  RouteSettings? redirect(String? route)=> (FirebaseAuth.instance.currentUser!=null)?null:route!='/userauth'?RouteSettings(name: '/userauth'):null;
 }

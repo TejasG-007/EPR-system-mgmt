@@ -36,7 +36,7 @@ class PersonalHistory extends StatelessWidget {
           icon: Icon(Icons.arrow_back,color: Colors.white,),
         ),
         title: Text(
-          "Personal History",
+          "Data Entry/View",
           style: GoogleFonts.gugi(color: Colors.white),
         ),
         elevation: 4,
@@ -73,17 +73,20 @@ class PersonalHistory extends StatelessWidget {
                       return Container(
                           child: InkWell(
                               onTap: () async{
-                                Get.toNamed("/show-personal-data",
-                                    arguments: [
-                                  {"Personal data": data},
-                                  {"userid": snapshot.data!.docs[ind].id},
-                                  {"lateMarks":await FirebaseFirestore.instance
-                                      .collection('Users').doc(snapshot.data!.docs[ind].id).collection("LateMarks")
-                                      .get()},
-                                  {"Feedback":await FirebaseFirestore.instance
-                                      .collection('Users').doc(snapshot.data!.docs[ind].id).collection("Feedback")
-                                      .get()}
-                                ]);
+                                Get.toNamed('/showuserFLH',arguments: [
+                                      {"personaldata": data},{"userid":id}
+                                    ]);
+                                // Get.toNamed("/show-personal-data",
+                                //     arguments: [
+                                //   {"Personal data": data},
+                                //   {"userid": snapshot.data!.docs[ind].id},
+                                //   {"lateMarks":await FirebaseFirestore.instance
+                                //       .collection('Users').doc(snapshot.data!.docs[ind].id).collection("LateMarks")
+                                //       .get()},
+                                //   {"Feedback":await FirebaseFirestore.instance
+                                //       .collection('Users').doc(snapshot.data!.docs[ind].id).collection("Feedback")
+                                //       .get()}
+                                // ]);
                               },
                               splashColor: Colors.green,
                               borderRadius: BorderRadius.circular(5),

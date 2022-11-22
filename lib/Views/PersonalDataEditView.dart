@@ -8,32 +8,36 @@ import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 class PersonalDataEditView extends StatelessWidget {
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-  List<Map<String, PersonalDataUpdate>> searchData = [{
-    "id": PersonalDataUpdate(
-        Userid: '',
-        Name: "search Employee Name here",
-        Classes: [],
-        Subjects: [],
-        Divisions: [],
-        Papers: [],
-        JoiningDate: '',
-        DailyWorkLoad: '',
-        Salary: {},
-        Mobile: '',
-        Casual_Leave: {},
-        Duty_Leave: {}),
-  }];
-
+  List<Map<String, PersonalDataUpdate>> searchData = [
+    {
+      "id": PersonalDataUpdate(
+          Userid: '',
+          Name: "search Employee Name here",
+          Classes: [],
+          Subjects: [],
+          Divisions: [],
+          Papers: [],
+          JoiningDate: '',
+          DailyWorkLoad: '',
+          Salary: {},
+          Mobile: '',
+          Casual_Leave: {},
+          Duty_Leave: {}),
+    }
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back,color: Colors.white,),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
         ),
         title: Text(
           "Way to Personal Data Edit ",
@@ -48,80 +52,131 @@ class PersonalDataEditView extends StatelessWidget {
                     context: context,
                     delegate: SearchingForNames(data: searchData));
               },
-              icon: Icon(Icons.search_rounded,color: Colors.white,))
+              icon: Icon(
+                Icons.search_rounded,
+                color: Colors.white,
+              ))
         ],
       ),
       body: SafeArea(
         child: StreamBuilder(
             stream: _firebaseFirestore.collection('Users').snapshots(),
             builder: (context, snapshot) => snapshot.connectionState ==
-                ConnectionState.waiting && !snapshot.hasData
+                        ConnectionState.waiting &&
+                    !snapshot.hasData
                 ? const Center(
-              child: CircularProgressIndicator(
-                color: Colors.purpleAccent,
-                semanticsLabel: "Fetching data...",
-              ),
-            )
+                    child: CircularProgressIndicator(
+                      color: Colors.purpleAccent,
+                      semanticsLabel: "Fetching data...",
+                    ),
+                  )
                 : ListView.builder(
-              shrinkWrap: true,
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (ctx, ind) {
-                PersonalDataUpdate data = PersonalDataUpdate.fromMap(
-                    snapshot.data!.docs[ind].data());
-                final id = snapshot.data!.docs[ind].id;
-                searchData.add({id:data});
-                return Container(
-                    child: InkWell(
-                        onTap: () async{
-                          Get.toNamed('/PersonalEntry-Edit',arguments: [
-                            {"PersonalData": data},{"userid": snapshot.data!.docs[ind].id}
-                          ]);
-                        },
-                        splashColor: Colors.green,
-                        borderRadius: BorderRadius.circular(5),
-                        child: ListTile(
-                          trailing: IconButton(
-                            onPressed: ()async{
-                              showDialog(context: context, builder: (context)=>AlertDialog(
-                                icon: Icon(Icons.warning,color: Colors.yellow,),
-                                title: Text("Do you really want to Delete?"),
-                                actions: [
-                                  ElevatedButton(onPressed: ()async{
-                                    await _firebaseFirestore.collection("Users").doc(id).delete().then((value) {
-                                      Get.back();
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Record has been deleted.")));
-                                    }
-                                    );
-                                  }, child: Text("Yes")),
-                                  ElevatedButton(onPressed: (){
-                                    Get.back();
-                                  }, child: Text("No")),
-                                ],
-                              ));
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (ctx, ind) {
+                      PersonalDataUpdate data = PersonalDataUpdate.fromMap(
+                          snapshot.data!.docs[ind].data());
+                      final id = snapshot.data!.docs[ind].id;
+                      searchData.add({id: data});
+                      return Container(
+                          child: InkWell(
+                              onTap: () async {
+                                Get.toNamed('/PersonalEntry-Edit', arguments: [
+                                  {"PersonalData": data},
+                                  {"userid": snapshot.data!.docs[ind].id}
+                                ]);
                               },
-                            icon: Icon(Icons.delete,color: Colors.red,),
-                          ),
-                          title: Text(
-                            data.Name,
-                            style: GoogleFonts.mulish(),
-                          ),
-                          subtitle: Text(
-                            "+91 ${data.Mobile}",
-                            style: GoogleFonts.openSans(),
-                          ),
-                          isThreeLine: true,
-                          enableFeedback: true,
-                        )));
-              },
-            )),
+                              splashColor: Colors.green,
+                              borderRadius: BorderRadius.circular(5),
+                              child: ListTile(
+                                trailing: IconButton(
+                                  onPressed: () async {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              icon: Icon(
+                                                Icons.warning,
+                                                color: Colors.yellow,
+                                              ),
+                                              title: Text(
+                                                  "Do you really want to Delete?"),
+                                              actions: [
+                                                ElevatedButton(
+                                                    onPressed: () async {
+                                                      try {
+                                                        await _firebaseFirestore
+                                                            .collection("Users")
+                                                            .doc(id)
+                                                            .delete()
+                                                            .then((value) {
+                                                          Get.back();
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(SnackBar(
+                                                                  content: Text(
+                                                                      "Record has been deleted.")));
+                                                        });
+                                                      } catch (e) {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (context) =>
+                                                                    AlertDialog(
+                                                                      icon:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .auto_delete_outlined,
+                                                                        color: Colors
+                                                                            .yellow,
+                                                                      ),
+                                                                      title: Text(
+                                                                          "$e"),
+                                                                      actions: [
+                                                                        IconButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              Get.back();
+                                                                            },
+                                                                            icon:
+                                                                                Icon(Icons.arrow_back))
+                                                                      ],
+                                                                    ));
+                                                      }
+                                                    },
+                                                    child: Text("Yes")),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    child: Text("No")),
+                                              ],
+                                            ));
+                                  },
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                title: Text(
+                                  data.Name,
+                                  style: GoogleFonts.mulish(),
+                                ),
+                                subtitle: Text(
+                                  "+91 ${data.Mobile}",
+                                  style: GoogleFonts.openSans(),
+                                ),
+                                isThreeLine: true,
+                                enableFeedback: true,
+                              )));
+                    },
+                  )),
       ),
     );
   }
 }
 
-
 class SearchingForNames extends SearchDelegate {
-  late List<Map<String,PersonalDataUpdate>> data;
+  late List<Map<String, PersonalDataUpdate>> data;
   SearchingForNames({required this.data});
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -134,6 +189,7 @@ class SearchingForNames extends SearchDelegate {
       ),
     ];
   }
+
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
@@ -143,19 +199,21 @@ class SearchingForNames extends SearchDelegate {
       icon: Icon(Icons.arrow_back),
     );
   }
+
   @override
   Widget buildResults(BuildContext context) {
-    Set<Map<String,PersonalDataUpdate>> matchQuery = {};
-    for (Map<String,PersonalDataUpdate> fruit in data) {
-      for(var ent in fruit.entries){
+    Set<Map<String, PersonalDataUpdate>> matchQuery = {};
+    for (Map<String, PersonalDataUpdate> fruit in data) {
+      for (var ent in fruit.entries) {
         if (ent.value.Name.toLowerCase().contains(query.toLowerCase())) {
           matchQuery.add(fruit);
-
         }
       }
-
     }
-    final jsonList = matchQuery.map((item) => jsonEncode(item.map((key, value) => MapEntry(key,value.toMap())))).toList();
+    final jsonList = matchQuery
+        .map((item) =>
+            jsonEncode(item.map((key, value) => MapEntry(key, value.toMap()))))
+        .toList();
 
     // using toSet - toList strategy
     final uniqueJsonList = jsonList.toSet().toList();
@@ -166,34 +224,47 @@ class SearchingForNames extends SearchDelegate {
       itemCount: final_list.length,
       itemBuilder: (context, index) {
         var result = final_list[index];
-        PersonalDataUpdate personalData = result.entries.map((e)=>PersonalDataUpdate.fromMap(e.value)).toList()[0];
-        String userid = result.entries.map((e)=>e.key).toString().substring(1,result.entries.map((e)=>e.key).toString().length-1);
+        PersonalDataUpdate personalData = result.entries
+            .map((e) => PersonalDataUpdate.fromMap(e.value))
+            .toList()[0];
+        String userid = result.entries.map((e) => e.key).toString().substring(
+            1, result.entries.map((e) => e.key).toString().length - 1);
         return ListTile(
           onTap: () async {
             Get.toNamed("/show-personal-data", arguments: [
               {"Personal data": personalData},
               {"userid": userid},
-              {"lateMarks":await FirebaseFirestore.instance
-                  .collection('Users').doc(userid).collection("LateMarks")
-                  .get(),
+              {
+                "lateMarks": await FirebaseFirestore.instance
+                    .collection('Users')
+                    .doc(userid)
+                    .collection("LateMarks")
+                    .get(),
               },
-              {"Feedback":await FirebaseFirestore.instance
-                  .collection('Users').doc(userid).collection("Feedback")
-                  .get()}
+              {
+                "Feedback": await FirebaseFirestore.instance
+                    .collection('Users')
+                    .doc(userid)
+                    .collection("Feedback")
+                    .get()
+              }
             ]);
           },
-          title: Text(result.entries.map((e)=>PersonalDataUpdate.fromMap(e.value).Name).toString().replaceAll("(","").replaceAll(")", "")),
+          title: Text(result.entries
+              .map((e) => PersonalDataUpdate.fromMap(e.value).Name)
+              .toString()
+              .replaceAll("(", "")
+              .replaceAll(")", "")),
         );
       },
     );
   }
 
-
   @override
   Widget buildSuggestions(BuildContext context) {
     var matchQuery = [];
-    for (Map<String,PersonalDataUpdate> fruit in data) {
-      for(var ent in fruit.entries){
+    for (Map<String, PersonalDataUpdate> fruit in data) {
+      for (var ent in fruit.entries) {
         if (ent.value.Name.toLowerCase().contains(query.toLowerCase())) {
           matchQuery.add(fruit);
         }

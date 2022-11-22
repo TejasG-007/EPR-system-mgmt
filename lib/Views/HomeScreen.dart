@@ -60,8 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   boxTiles('/daily-data-entry', size, "assets/images/Daily-Entry.png",
                       "Daily-Data-Entry"),
-                  boxTiles('/feedback-and-latemarks', size, "assets/images/lateandfeedback.png",
-                      "Late-Marks and Feedback Entry"),
+                  boxTiles('/PersonalDataEditView', size, "assets/images/person-edit.png",
+                      "Personal Data Edit"),
+
                 ],
               ),
               Row(
@@ -69,15 +70,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   boxTiles('/personal-data-entry', size,
                       "assets/images/Data-Entry.png", "Personal-Data-Entry"),
                   boxTiles('/Personal-history', size,
-                      "assets/images/personal-info.png", "Personal History"),
+                      "assets/images/personal-info.png", "Data Entry/View"),
                 ],
               ),
               Row(
                 children: [
                   boxTiles('/report-gen', size,
                       "assets/images/Feedback Report.png", "Report-Generator"),
-                  boxTiles('/PersonalDataEditView', size, "assets/images/person-edit.png",
-                      "Personal Data Edit"),
+                  boxTiles('/home', size, "assets/images/help-desk.png",
+                      "Help-Desk"),
                 ],
               ),
               Row(

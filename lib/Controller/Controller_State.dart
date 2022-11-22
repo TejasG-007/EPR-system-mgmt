@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:techer_mgmt/Modal/DailyUpdate.dart';
 import 'package:techer_mgmt/Modal/LateMarks.dart';
@@ -5,6 +6,12 @@ import 'package:techer_mgmt/Modal/PersonalUpdate.dart';
 import '../Modal/FeedbackUpdate.dart';
 
 class ControllerState extends GetxController {
+
+
+  checkUser()async{
+    return FirebaseAuth.instance.currentUser!=null;
+  }
+
   /////////////////////For Late Marks//////////////////////////////
   List<String> classesfromFirebase = [""].obs;
   List<String> divisionfromFirebase = [""].obs;
